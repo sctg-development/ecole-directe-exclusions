@@ -3,6 +3,9 @@
 [![CI](https://github.com/sctg-development/ecole-directe-exclusions/actions/workflows/ci.yml/badge.svg)](https://github.com/sctg-development/ecole-directe-exclusions/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 [![Node](https://img.shields.io/badge/node-%E2%89%A522-brightgreen.svg)](./package.json)
+![Code](https://tokeisrv.sctg.eu.org/b1/github.com/sctg-development/ecole-directe-exclusions?type=TypeScript,TSX&category=code)
+![Comments](https://tokeisrv.sctg.eu.org/b1/github.com/sctg-development/ecole-directe-exclusions?type=TSX,TypeScript&category=comments&color=abdbe3)
+![Documentation](https://tokeisrv.sctg.eu.org/b1/github.com/sctg-development/ecole-directe-exclusions?type=Markdown&label=doc&color=e28743)
 
 Real-time classroom **exclusion tracking** for schools. When a teacher excludes a disruptive
 student from a lesson, the student today walks the school unsupervised — nobody at the student-life
