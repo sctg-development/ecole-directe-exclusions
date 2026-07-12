@@ -1,0 +1,33 @@
+{
+  "name": "@exclusions/server",
+  "version": "0.1.0",
+  "description": "Cloudflare Worker serving the exclusion tracker API, push dispatch and web client",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "author": {
+    "name": "SCTG Development - Ronan LE MEILLAT"
+  },
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "build": "wrangler deploy --dry-run --outdir dist",
+    "typecheck": "tsc --noEmit",
+    "typegen": "wrangler types",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "db:migrate:local": "wrangler d1 migrations apply DB --local"
+  },
+  "dependencies": {
+    "@exclusions/shared": "*",
+    "hono": "^4.12.28",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-pool-workers": "^0.18.3",
+    "@cloudflare/workers-types": "^5.20260708.1",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.10",
+    "wrangler": "^4.109.0"
+  }
+}

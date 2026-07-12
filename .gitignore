@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+coverage/
+
+# Cloudflare
+.wrangler/
+.dev.vars
+.dev.vars.*
+worker-configuration.d.ts
+
+# Environment & secrets
+.env
+.env.*
+*.pem
+*.p8
+*-service-account.json
+
+# Editors & OS
+.DS_Store
+.idea/
+*.swp
+
+# Logs
+*.log
+npm-debug.log*
+
+# Vite
+.vite/

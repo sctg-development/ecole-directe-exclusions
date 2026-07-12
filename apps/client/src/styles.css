@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+/* Brand ramp (validated single-hue blue, see the data-viz palette). */
+@theme {
+  --color-brand-50: #eff5fc;
+  --color-brand-100: #cde2fb;
+  --color-brand-200: #9ec5f4;
+  --color-brand-300: #6da7ec;
+  --color-brand-400: #3987e5;
+  --color-brand-500: #2a78d6;
+  --color-brand-600: #256abf;
+  --color-brand-700: #1c5cab;
+  --color-brand-800: #184f95;
+  --color-brand-900: #104281;
+}
+
+/* Chart tokens — one hue for counts, red reserved for the "missing" series. */
+:root {
+  --chart-count: #2a78d6;
+  --chart-missing: #e34948;
+  --chart-grid: #e1e0d9;
+  --chart-muted: #898781;
+  --surface-card: #ffffff;
+  --ink: #0b0b0b;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --chart-count: #3987e5;
+    --chart-missing: #e66767;
+    --chart-grid: #2c2c2a;
+    --chart-muted: #898781;
+    --surface-card: #262626;
+    --ink: #ffffff;
+  }
+}
+
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  @apply bg-neutral-100 text-neutral-900 antialiased dark:bg-neutral-950 dark:text-neutral-100;
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl bg-white p-4 shadow-sm dark:bg-neutral-900;
+  }
+
+  .btn {
+    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-xl px-4 font-semibold transition select-none active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  .btn-lg {
+    @apply min-h-14 px-6 text-lg;
+  }
+
+  .btn-primary {
+    @apply bg-brand-600 text-white hover:bg-brand-700 dark:bg-brand-500 dark:hover:bg-brand-400;
+  }
+
+  .btn-secondary {
+    @apply bg-neutral-200 text-neutral-900 hover:bg-neutral-300 dark:bg-neutral-800 dark:text-neutral-100 dark:hover:bg-neutral-700;
+  }
+
+  .btn-danger {
+    @apply bg-red-600 text-white hover:bg-red-700;
+  }
+
+  .btn-ghost {
+    @apply text-neutral-600 hover:bg-neutral-200 dark:text-neutral-300 dark:hover:bg-neutral-800;
+  }
+
+  .input {
+    @apply min-h-12 w-full rounded-xl border border-neutral-300 bg-white px-3 text-base text-neutral-900 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-200 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100 dark:focus:ring-brand-900;
+  }
+
+  .chip {
+    @apply inline-flex min-h-10 items-center rounded-full border border-neutral-300 px-4 text-sm font-medium text-neutral-700 transition select-none dark:border-neutral-700 dark:text-neutral-300;
+  }
+
+  .chip-active {
+    @apply border-brand-600 bg-brand-600 text-white dark:border-brand-400 dark:bg-brand-500;
+  }
+}

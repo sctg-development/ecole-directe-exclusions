@@ -1,0 +1,61 @@
+name: Bug report
+description: Something does not work as documented.
+title: "[bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug. Please **never include real student data**
+        (names, classes, incident details) in an issue — use fictional data in reproductions.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      description: Which part of the project is affected?
+      options:
+        - server (Cloudflare Worker / API)
+        - client (web / PWA)
+        - client (Android app)
+        - client (iOS app)
+        - shared package (types / lifecycle)
+        - push notifications
+        - deployment / CI
+        - documentation
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Clear description of the bug, including error messages if any.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Log in as a teacher
+        2. Create an exclusion with reason "other" and no comment
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Browser/OS or device, app version, local dev vs deployed.
+      placeholder: "Chrome 138 / macOS 15, local dev (wrangler dev + vite)"
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs
+      description: Console output, `wrangler tail`, HTTP responses… Redact secrets and personal data.
+      render: shell

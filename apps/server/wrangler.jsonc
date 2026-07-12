@@ -1,0 +1,130 @@
+/**
+ * Wrangler configuration — one Worker per school (GDPR isolation).
+ *
+ * The top-level (no `--env`) configuration is the LOCAL DEV target: it runs the mock SIS with
+ * the "apprentis-auteuil" profile against a local D1 database. Each school is a wrangler
+ * environment deployed with `wrangler deploy --env <school-id>` (see docs/DEPLOYMENT.md).
+ *
+ * Secrets — set per environment with `wrangler secret put <NAME> --env <school-id>`,
+ * NEVER stored in this file or in git:
+ *   - JWT_SECRET           HS256 key for access tokens (e.g. `openssl rand -base64 32`)
+ *   - BOOTSTRAP_SECRET     one-time secret for POST /api/v1/auth/bootstrap (first admin)
+ *   - VAPID_PUBLIC_KEY     Web Push VAPID public key (base64url, uncompressed P-256 point)
+ *   - VAPID_PRIVATE_KEY    Web Push VAPID private key (base64url, 32-byte scalar)
+ *   - FCM_SERVICE_ACCOUNT  optional Firebase service-account JSON (Android/iOS push);
+ *                          when unset the FCM sender is a no-op that logs.
+ */
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "exclusions-server",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-06-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": {
+    "enabled": true,
+  },
+  // Escalation sweep: pending/acknowledged exclusions older than ESCALATION_MINUTES → missing.
+  "triggers": {
+    "crons": ["*/5 * * * *"],
+  },
+  // The web client is served by this same Worker; /api/* always hits the Worker first.
+  "assets": {
+    "directory": "../client/dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"],
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "exclusions-dev",
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "migrations",
+    },
+  ],
+  "vars": {
+    "SCHOOL_ID": "apprentis-auteuil",
+    "SCHOOL_NAME": "Fondation des Apprentis d'Auteuil",
+    "SIS_PROVIDER": "mock",
+    "ESCALATION_MINUTES": "10",
+    "RETENTION_MONTHS": "24",
+    "VAPID_SUBJECT": "mailto:ronan.le_meillat@cdvl59.eu.org",
+  },
+  "env": {
+    "apprentis-auteuil": {
+      "name": "exclusions-apprentis-auteuil",
+      "assets": {
+        "directory": "../client/dist",
+        "binding": "ASSETS",
+        "not_found_handling": "single-page-application",
+        "run_worker_first": ["/api/*"],
+      },
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "exclusions-apprentis-auteuil",
+          "database_id": "REPLACE_WITH_D1_ID",
+          "migrations_dir": "migrations",
+        },
+      ],
+      "vars": {
+        "SCHOOL_ID": "apprentis-auteuil",
+        "SCHOOL_NAME": "Fondation des Apprentis d'Auteuil",
+        "SIS_PROVIDER": "mock",
+        "ESCALATION_MINUTES": "10",
+        "RETENTION_MONTHS": "24",
+        "VAPID_SUBJECT": "mailto:ronan.le_meillat@cdvl59.eu.org",
+      },
+    },
+    "saint-dominique": {
+      "name": "exclusions-saint-dominique",
+      "assets": {
+        "directory": "../client/dist",
+        "binding": "ASSETS",
+        "not_found_handling": "single-page-application",
+        "run_worker_first": ["/api/*"],
+      },
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "exclusions-saint-dominique",
+          "database_id": "REPLACE_WITH_D1_ID",
+          "migrations_dir": "migrations",
+        },
+      ],
+      "vars": {
+        "SCHOOL_ID": "saint-dominique",
+        "SCHOOL_NAME": "Lycée Saint Dominique",
+        "SIS_PROVIDER": "mock",
+        "ESCALATION_MINUTES": "10",
+        "RETENTION_MONTHS": "24",
+        "VAPID_SUBJECT": "mailto:ronan.le_meillat@cdvl59.eu.org",
+      },
+    },
+    "saint-paul": {
+      "name": "exclusions-saint-paul",
+      "assets": {
+        "directory": "../client/dist",
+        "binding": "ASSETS",
+        "not_found_handling": "single-page-application",
+        "run_worker_first": ["/api/*"],
+      },
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "exclusions-saint-paul",
+          "database_id": "REPLACE_WITH_D1_ID",
+          "migrations_dir": "migrations",
+        },
+      ],
+      "vars": {
+        "SCHOOL_ID": "saint-paul",
+        "SCHOOL_NAME": "Lycée Saint Paul",
+        "SIS_PROVIDER": "mock",
+        "ESCALATION_MINUTES": "10",
+        "RETENTION_MONTHS": "24",
+        "VAPID_SUBJECT": "mailto:ronan.le_meillat@cdvl59.eu.org",
+      },
+    },
+  },
+}

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Exclusions">
+  <!-- Rounded-square mark: an open door with an exit arrow. Bold shapes, safe for maskable. -->
+  <rect width="512" height="512" rx="112" fill="#1c5cab"/>
+  <!-- Door frame, open on the right -->
+  <path
+    d="M282 122h-114a26 26 0 0 0-26 26v216a26 26 0 0 0 26 26h114"
+    fill="none"
+    stroke="#ffffff"
+    stroke-width="34"
+    stroke-linecap="round"
+  />
+  <!-- Exit arrow -->
+  <path
+    d="M236 256h150"
+    fill="none"
+    stroke="#ffffff"
+    stroke-width="34"
+    stroke-linecap="round"
+  />
+  <path
+    d="M330 200l58 56-58 56"
+    fill="none"
+    stroke="#ffffff"
+    stroke-width="34"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>

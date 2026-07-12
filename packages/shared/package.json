@@ -1,0 +1,27 @@
+{
+  "name": "@exclusions/shared",
+  "version": "0.1.0",
+  "description": "Shared domain types, API schemas and exclusion lifecycle for the exclusion tracker",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "author": {
+    "name": "SCTG Development - Ronan LE MEILLAT"
+  },
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest",
+    "test:run": "vitest run"
+  },
+  "dependencies": {
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.10"
+  }
+}

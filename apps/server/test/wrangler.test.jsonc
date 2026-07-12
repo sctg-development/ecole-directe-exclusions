@@ -1,0 +1,30 @@
+/**
+ * Stripped wrangler config for tests only: no static-assets binding (../client/dist may not
+ * exist), no cron trigger, and test-only values for the secrets. Production config lives in
+ * ../wrangler.jsonc.
+ */
+{
+  "name": "exclusions-server-test",
+  "main": "../src/index.ts",
+  "compatibility_date": "2026-06-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "exclusions-test",
+      "database_id": "exclusions-test",
+    },
+  ],
+  "vars": {
+    "SCHOOL_ID": "apprentis-auteuil",
+    "SCHOOL_NAME": "Fondation des Apprentis d'Auteuil",
+    "SIS_PROVIDER": "mock",
+    "ESCALATION_MINUTES": "10",
+    "RETENTION_MONTHS": "24",
+    "VAPID_SUBJECT": "mailto:test@example.org",
+    // Test-only stand-ins for the wrangler secrets (never reuse in a deployment).
+    "JWT_SECRET": "test-jwt-secret-not-for-production",
+    "BOOTSTRAP_SECRET": "test-bootstrap-secret",
+    "VAPID_PUBLIC_KEY": "BDd3_hVL9fZi9Ybo2UUY6kOPZx7PjbtGVc9blJZeJ4msLGFyC0KUFcQ9ZI7PwXZikXHIll_hHrGKZ7XPRHV1Tbo",
+  },
+}

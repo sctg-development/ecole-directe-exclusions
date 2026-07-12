@@ -1,0 +1,32 @@
+name: Feature request
+description: Suggest an improvement or a new capability.
+title: "[feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What problem would this solve? Who benefits (teacher, vie scolaire, admin)?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: What you would like to happen. Sketches and API examples welcome.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope check
+      options:
+        - label: This feature keeps per-school data isolation intact (no cross-school data flows).
+          required: true
+        - label: This feature does not require storing more student data than strictly necessary.
+          required: true
