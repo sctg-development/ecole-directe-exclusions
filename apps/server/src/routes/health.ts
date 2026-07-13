@@ -21,11 +21,8 @@ SOFTWARE.
 /** Unauthenticated health check. */
 
 import { Hono } from "hono";
-import type { HealthResponse } from "@exclusions/shared";
+import { API_VERSION, type HealthResponse } from "@exclusions/shared";
 import type { AppEnv } from "../env.js";
-
-/** Kept in sync with the package version at release time. */
-const VERSION = "0.1.0";
 
 export const healthRoutes = new Hono<AppEnv>();
 
@@ -34,7 +31,7 @@ healthRoutes.get("/health", (c) => {
   const body: HealthResponse = {
     status: "ok",
     school: { id: c.env.SCHOOL_ID, name: c.env.SCHOOL_NAME },
-    version: VERSION,
+    version: API_VERSION,
   };
   return c.json(body);
 });

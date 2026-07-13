@@ -18,9 +18,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-export * from "./domain.js";
-export * from "./constants.js";
-export * from "./schools.js";
-export * from "./lifecycle.js";
-export * from "./api.js";
-export * from "./openapi.js";
+/** Unauthenticated OpenAPI 3.2.0 document, generated from the shared Zod schemas. */
+
+import { Hono } from "hono";
+import { buildOpenApiDocument } from "@exclusions/shared";
+import type { AppEnv } from "../env.js";
+
+export const openapiRoutes = new Hono<AppEnv>();
+
+// GET /openapi.json
+openapiRoutes.get("/openapi.json", (c) => {
+  const url = new URL(c.req.url);
+  const doc = buildOpenApiDocument({
+    serverUrl: `${url.protocol}//${url.host}/api/v1`,
+    schoolId: c.env.SCHOOL_ID,
+    schoolName: c.env.SCHOOL_NAME,
+  });
+  return c.json(doc);
+});

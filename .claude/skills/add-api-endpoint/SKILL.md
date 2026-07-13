@@ -16,6 +16,14 @@ An endpoint touches **four places** that must ship together: `packages/shared/sr
 - Export the inferred request type (`export type FooRequest = z.infer<typeof fooRequestSchema>;`)
   and a response interface in the "Response shapes" section. `src/index.ts` re-exports `api.ts`
   with `export *`, so no index edit is needed.
+- Add a Zod schema mirroring the response shape too (not just the interface), plus a compile-time
+  `assertExact<z.infer<typeof fooSchema>, Foo>(true);` guard — the generated OpenAPI document at
+  `GET /api/v1/openapi.json` (`packages/shared/src/openapi.ts`) is built from these schemas, so a
+  response with no matching schema won't appear in it.
+- Register the new endpoint in the `ROUTES` array in `packages/shared/src/openapi.ts` (method,
+  path, tag, auth/roles, request/response component names) — this is the fifth place an endpoint
+  touches, alongside the four below. Add its request/response schemas to `COMPONENT_SCHEMAS` in
+  the same file if they're new.
 - Add/extend a test in `packages/shared` for non-trivial refinements (e.g. conditional
   required fields, coercions, defaults).
 

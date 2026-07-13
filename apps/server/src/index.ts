@@ -36,6 +36,7 @@ import { statsRoutes } from "./routes/stats.js";
 import { reportRoutes } from "./routes/reports.js";
 import { pushRoutes } from "./routes/push.js";
 import { healthRoutes } from "./routes/health.js";
+import { openapiRoutes } from "./routes/openapi.js";
 
 export const app = new Hono<AppEnv>();
 
@@ -46,6 +47,7 @@ app.onError((error, _c) => {
 
 const api = new Hono<AppEnv>();
 api.route("/", healthRoutes);
+api.route("/", openapiRoutes);
 api.route("/", authRoutes);
 api.route("/", userRoutes);
 api.route("/", sisRoutes);

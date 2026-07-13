@@ -20,6 +20,9 @@ SOFTWARE.
 
 import type { ExclusionReason, ExclusionStatus, Role } from "./domain.js";
 
+/** Server version, exposed via `GET /health` and the generated OpenAPI document. */
+export const API_VERSION = "0.1.0";
+
 /**
  * Exclusion reasons with their French UI labels. The UI is French-first (users are French
  * school staff); labels live here because the server also uses them in push notifications.

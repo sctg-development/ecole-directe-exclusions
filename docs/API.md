@@ -2,7 +2,9 @@
 
 All endpoints are prefixed with `/api/v1`. Request/response bodies are JSON and validated with
 the Zod schemas in `@exclusions/shared` (`packages/shared/src/api.ts`) — **that package is the
-source of truth**; this document is the human-readable companion.
+source of truth**; this document is the human-readable companion. A machine-readable OpenAPI
+3.2.0 document, generated from those same schemas, is served at `GET /api/v1/openapi.json` (no
+auth required).
 
 ## Conventions
 

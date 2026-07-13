@@ -19,8 +19,26 @@ SOFTWARE.
 */
 
 import { z } from "zod";
-import type { Exclusion, ExclusionEvent, User } from "./domain.js";
+import type {
+  Exclusion,
+  ExclusionEvent,
+  ExclusionEventType,
+  PushSubscriptionInfo,
+  SchoolClass,
+  Student,
+  User,
+} from "./domain.js";
 import { MIN_PASSWORD_LENGTH } from "./constants.js";
+
+/**
+ * Compile-time check that `A` and `B` are exactly the same type (not just assignable one way).
+ * Used below to keep each response schema in exact sync with the domain/API interface it
+ * mirrors for OpenAPI generation — a mismatch fails `tsc --noEmit` instead of the generated
+ * document silently drifting from reality.
+ */
+type AssertExact<A, B> =
+  (<T>() => T extends A ? 1 : 2) extends <T>() => T extends B ? 1 : 2 ? true : never;
+function assertExact<A, B>(_check: AssertExact<A, B>): void {}
 
 /**
  * Zod schemas for every API request body and query string — the machine-readable half of
@@ -193,6 +211,24 @@ export interface ApiErrorBody {
   };
 }
 
+export const apiErrorBodySchema = z.object({
+  error: z.object({
+    code: z.enum([
+      "invalid_credentials",
+      "unauthorized",
+      "forbidden",
+      "not_found",
+      "validation_error",
+      "invalid_transition",
+      "rate_limited",
+      "conflict",
+      "internal",
+    ]),
+    message: z.string(),
+  }),
+});
+assertExact<z.infer<typeof apiErrorBodySchema>, ApiErrorBody>(true);
+
 export interface Paginated<T> {
   items: T[];
   page: number;
@@ -200,20 +236,127 @@ export interface Paginated<T> {
   total: number;
 }
 
+// --- Domain mirrors (runtime schemas for the response types above, used by the OpenAPI
+// generator; the domain interfaces in ./domain.ts remain the source of truth). ---
+
+export const userSchema = z.object({
+  id: z.string(),
+  email: z.email(),
+  displayName: z.string(),
+  role: roleSchema,
+  disabled: z.boolean(),
+  createdAt: z.string(),
+});
+assertExact<z.infer<typeof userSchema>, User>(true);
+
+export const schoolClassSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  level: z.string(),
+  studentCount: z.number(),
+});
+assertExact<z.infer<typeof schoolClassSchema>, SchoolClass>(true);
+
+export const studentSchema = z.object({
+  id: z.string(),
+  firstName: z.string(),
+  lastName: z.string(),
+  classId: z.string(),
+  className: z.string(),
+});
+assertExact<z.infer<typeof studentSchema>, Student>(true);
+
+export const exclusionEventTypeSchema = z.enum([
+  "created",
+  "acknowledged",
+  "arrived",
+  "missing",
+  "resolved",
+  "cancelled",
+]);
+assertExact<z.infer<typeof exclusionEventTypeSchema>, ExclusionEventType>(true);
+
+export const exclusionSchema = z.object({
+  id: z.string(),
+  studentId: z.string(),
+  studentName: z.string(),
+  classId: z.string(),
+  className: z.string(),
+  teacherId: z.string(),
+  teacherName: z.string(),
+  reason: exclusionReasonSchema,
+  comment: z.string().nullable(),
+  status: exclusionStatusSchema,
+  createdAt: z.string(),
+  acknowledgedAt: z.string().nullable(),
+  arrivedAt: z.string().nullable(),
+  missingAt: z.string().nullable(),
+  resolvedAt: z.string().nullable(),
+  cancelledAt: z.string().nullable(),
+  updatedAt: z.string(),
+});
+assertExact<z.infer<typeof exclusionSchema>, Exclusion>(true);
+
+export const exclusionEventSchema = z.object({
+  id: z.string(),
+  exclusionId: z.string(),
+  actorId: z.string().nullable(),
+  actorName: z.string(),
+  type: exclusionEventTypeSchema,
+  comment: z.string().nullable(),
+  createdAt: z.string(),
+});
+assertExact<z.infer<typeof exclusionEventSchema>, ExclusionEvent>(true);
+
+export const pushSubscriptionInfoSchema = z.object({
+  id: z.string(),
+  platform: pushPlatformSchema,
+  deviceName: z.string().nullable(),
+  createdAt: z.string(),
+});
+assertExact<z.infer<typeof pushSubscriptionInfoSchema>, PushSubscriptionInfo>(true);
+
+/** Concrete pagination wrapper for `Exclusion` — the only `Paginated<T>` usage in the API. */
+export const paginatedExclusionSchema = z.object({
+  items: z.array(exclusionSchema),
+  page: z.number(),
+  pageSize: z.number(),
+  total: z.number(),
+});
+assertExact<z.infer<typeof paginatedExclusionSchema>, Paginated<Exclusion>>(true);
+
 export interface LoginResponse {
   accessToken: string;
   refreshToken: string;
   user: User;
 }
 
+export const loginResponseSchema = z.object({
+  accessToken: z.string(),
+  refreshToken: z.string(),
+  user: userSchema,
+});
+assertExact<z.infer<typeof loginResponseSchema>, LoginResponse>(true);
+
 export interface RefreshResponse {
   accessToken: string;
   refreshToken: string;
 }
 
+export const refreshResponseSchema = z.object({
+  accessToken: z.string(),
+  refreshToken: z.string(),
+});
+assertExact<z.infer<typeof refreshResponseSchema>, RefreshResponse>(true);
+
 export interface ExclusionWithEvents extends Exclusion {
   events: ExclusionEvent[];
 }
+
+export const exclusionWithEventsSchema = exclusionSchema.extend({
+  events: z.array(exclusionEventSchema),
+});
+assertExact<z.infer<typeof exclusionWithEventsSchema>, ExclusionWithEvents>(true);
 
 export interface StatsSummary {
   total: number;
@@ -225,11 +368,27 @@ export interface StatsSummary {
   missingRate: number;
 }
 
+export const statsSummarySchema = z.object({
+  total: z.number(),
+  byStatus: z.record(z.string(), z.number()),
+  byReason: z.record(z.string(), z.number()),
+  avgArrivalSeconds: z.number().nullable(),
+  missingRate: z.number(),
+});
+assertExact<z.infer<typeof statsSummarySchema>, StatsSummary>(true);
+
 export interface ClassStat {
   classId: string;
   className: string;
   count: number;
 }
+
+export const classStatSchema = z.object({
+  classId: z.string(),
+  className: z.string(),
+  count: z.number(),
+});
+assertExact<z.infer<typeof classStatSchema>, ClassStat>(true);
 
 export interface StudentStat {
   studentId: string;
@@ -238,11 +397,25 @@ export interface StudentStat {
   count: number;
 }
 
+export const studentStatSchema = z.object({
+  studentId: z.string(),
+  studentName: z.string(),
+  className: z.string(),
+  count: z.number(),
+});
+assertExact<z.infer<typeof studentStatSchema>, StudentStat>(true);
+
 export interface TimelineBucket {
   /** Bucket start: "2026-07-09" (day), ISO week start date (week) or "2026-07" (month). */
   bucket: string;
   count: number;
 }
+
+export const timelineBucketSchema = z.object({
+  bucket: z.string(),
+  count: z.number(),
+});
+assertExact<z.infer<typeof timelineBucketSchema>, TimelineBucket>(true);
 
 export interface HealthResponse {
   status: "ok";
@@ -250,6 +423,18 @@ export interface HealthResponse {
   version: string;
 }
 
+export const healthResponseSchema = z.object({
+  status: z.literal("ok"),
+  school: z.object({ id: z.string(), name: z.string() }),
+  version: z.string(),
+});
+assertExact<z.infer<typeof healthResponseSchema>, HealthResponse>(true);
+
 export interface VapidPublicKeyResponse {
   publicKey: string;
 }
+
+export const vapidPublicKeyResponseSchema = z.object({
+  publicKey: z.string(),
+});
+assertExact<z.infer<typeof vapidPublicKeyResponseSchema>, VapidPublicKeyResponse>(true);

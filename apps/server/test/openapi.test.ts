@@ -18,9 +18,30 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-export * from "./domain.js";
-export * from "./constants.js";
-export * from "./schools.js";
-export * from "./lifecycle.js";
-export * from "./api.js";
-export * from "./openapi.js";
+import { SELF } from "cloudflare:test";
+import { describe, expect, it } from "vitest";
+import { api } from "./helpers.js";
+
+describe("GET /openapi.json", () => {
+  it("serves an OpenAPI 3.2.0 document without authentication", async () => {
+    const response = await api.get("/api/v1/openapi.json");
+    expect(response.status).toBe(200);
+    expect(response.headers.get("Content-Type")).toContain("application/json");
+
+    const body = (await response.json()) as {
+      openapi: string;
+      info: { title: string };
+      servers: Array<{ url: string }>;
+    };
+    expect(body.openapi).toBe("3.2.0");
+    expect(typeof body.info.title).toBe("string");
+    expect(body.info.title.length).toBeGreaterThan(0);
+    expect(body.servers[0]?.url).toMatch(/\/api\/v1$/);
+  });
+
+  it("derives the server URL from the incoming request", async () => {
+    const response = await SELF.fetch("https://example.com/api/v1/openapi.json");
+    const body = (await response.json()) as { servers: Array<{ url: string }> };
+    expect(body.servers[0]?.url).toBe("https://example.com/api/v1");
+  });
+});
