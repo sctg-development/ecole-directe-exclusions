@@ -87,7 +87,7 @@ Bootstrap the first admin account (one-time, guarded by the bootstrap secret):
 curl -X POST http://localhost:8787/api/v1/auth/bootstrap \
   -H "Content-Type: application/json" \
   -H "X-Bootstrap-Secret: <your BOOTSTRAP_SECRET>" \
-  -d '{"email":"admin@example.org","displayName":"Admin","password":"a-strong-password"}'
+  -d '{"email":"admin@example.org","displayName":"Admin","password":"a-strong-password-protecting-super-admin"}'
 ```
 
 Then log in on http://localhost:5173 and create teacher / vie-scolaire accounts from the admin
