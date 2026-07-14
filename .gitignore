@@ -30,3 +30,6 @@ npm-debug.log*
 
 # Vite
 .vite/
+
+# GitHub Actions
+.github/workflows/secrets
