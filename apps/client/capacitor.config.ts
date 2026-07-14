@@ -26,7 +26,7 @@ import type { CapacitorConfig } from "@capacitor/cli";
  * sync with `npm run cap:sync -w @exclusions/client` after every web build.
  */
 const config: CapacitorConfig = {
-  appId: "dev.sctg.exclusions",
+  appId: "org.eu.sctg-development.exclusions",
   appName: "Exclusions",
   webDir: "dist",
   server: {
