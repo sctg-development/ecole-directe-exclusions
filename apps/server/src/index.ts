@@ -25,6 +25,7 @@ SOFTWARE.
  */
 
 import { Hono } from "hono";
+import { cors } from "hono/cors";
 import type { AppEnv, Env } from "./env.js";
 import { errorResponse } from "./lib/errors.js";
 import { runScheduled } from "./scheduled.js";
@@ -46,7 +47,26 @@ app.onError((error, _c) => {
   return errorResponse(500, "internal", "Unexpected server error");
 });
 
+/**
+ * Origins the Capacitor shells actually send (see apps/client/capacitor.config.ts): iOS uses
+ * Capacitor's default `capacitor://localhost`; Android is configured with `androidScheme:
+ * "https"` and no custom hostname, so it defaults to `https://localhost`. `http://localhost` is
+ * included defensively for local native-build testing. The web PWA is served same-origin by
+ * this same Worker (or proxied in Vite dev), so it never sends a cross-origin `Origin` header
+ * and doesn't need to be in this list.
+ */
+const ALLOWED_CLIENT_ORIGINS = ["capacitor://localhost", "https://localhost", "http://localhost"];
+
 const api = new Hono<AppEnv>();
+api.use(
+  "*",
+  cors({
+    origin: ALLOWED_CLIENT_ORIGINS,
+    allowMethods: ["GET", "POST", "PATCH", "PUT", "DELETE"],
+    allowHeaders: ["Content-Type", "Authorization"],
+    maxAge: 600,
+  }),
+);
 api.route("/", healthRoutes);
 api.route("/", openapiRoutes);
 api.route("/", authRoutes);

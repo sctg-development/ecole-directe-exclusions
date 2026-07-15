@@ -26,7 +26,7 @@ SOFTWARE.
  * admin-only `POST /users` endpoint, exactly like a real deployment would after day one.
  */
 
-import { SELF } from "cloudflare:test";
+import { exports } from "cloudflare:workers";
 import { beforeAll, describe, expect, it } from "vitest";
 import { LOGIN_MAX_ATTEMPTS } from "@exclusions/shared";
 import {
@@ -49,7 +49,7 @@ beforeAll(async () => {
 
 /** Bootstrap with the correct secret header, bypassing the helper's throw-on-failure behavior. */
 async function fetchBootstrap(body: unknown): Promise<Response> {
-  return SELF.fetch("https://example.com/api/v1/auth/bootstrap", {
+  return exports.default.fetch("https://example.com/api/v1/auth/bootstrap", {
     method: "POST",
     headers: { "Content-Type": "application/json", "X-Bootstrap-Secret": BOOTSTRAP_SECRET },
     body: JSON.stringify(body),

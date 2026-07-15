@@ -18,7 +18,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-import { SELF } from "cloudflare:test";
+import { exports } from "cloudflare:workers";
 import { describe, expect, it } from "vitest";
 import { api } from "./helpers.js";
 
@@ -40,7 +40,7 @@ describe("GET /openapi.json", () => {
   });
 
   it("derives the server URL from the incoming request", async () => {
-    const response = await SELF.fetch("https://example.com/api/v1/openapi.json");
+    const response = await exports.default.fetch("https://example.com/api/v1/openapi.json");
     const body = (await response.json()) as { servers: Array<{ url: string }> };
     expect(body.servers[0]?.url).toBe("https://example.com/api/v1");
   });

@@ -17,6 +17,10 @@ auth required).
 - **Dates**: ISO 8601 UTC strings (`2026-07-09T08:30:00.000Z`).
 - **IDs**: opaque strings (UUID v4 generated with `crypto.randomUUID()`).
 - **Pagination**: `?page=1&pageSize=25` → `{ items, page, pageSize, total }`.
+- **CORS**: enabled on every `/api/v1/*` route for the Capacitor native shells' origins
+  (`capacitor://localhost` on iOS, `https://localhost` on Android — see
+  `apps/server/src/index.ts`, `ALLOWED_CLIENT_ORIGINS`, and `docs/MOBILE.md`). The web PWA is
+  served same-origin by the same Worker and never needs it.
 
 ## Auth
 

@@ -59,6 +59,13 @@ npx cap open ios
 Point each school's native build at that school's own Worker URL (per-school API base URL — the
 apps must never talk to another school's backend).
 
+Since the native shell serves the bundled app from its own origin (`capacitor://localhost` on
+iOS, `https://localhost` on Android per `capacitor.config.ts`'s `androidScheme`) rather than the
+Worker's origin, every API call is cross-origin — the Worker allows exactly these two origins via
+CORS (see `apps/server/src/index.ts`, `ALLOWED_CLIENT_ORIGINS`). If you ever change
+`capacitor.config.ts`'s scheme/hostname, update that list too, or native logins will fail with a
+CORS preflight error instead of reaching the API.
+
 ## Firebase / push setup
 
 ### Android (FCM)

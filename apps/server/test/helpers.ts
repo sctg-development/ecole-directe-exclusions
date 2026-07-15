@@ -24,7 +24,7 @@ SOFTWARE.
  * so `bootstrapAdmin` can safely assume it is creating the very first user.
  */
 
-import { SELF } from "cloudflare:test";
+import { exports } from "cloudflare:workers";
 import type { LoginResponse, Role, User } from "@exclusions/shared";
 
 /** Matches the `BOOTSTRAP_SECRET` var in test/wrangler.test.jsonc. */
@@ -52,7 +52,7 @@ async function request(
   if (options.token !== undefined) headers["Authorization"] = `Bearer ${options.token}`;
   const init: RequestInit = { method, headers };
   if (options.body !== undefined) init.body = JSON.stringify(options.body);
-  return SELF.fetch(`https://example.com${path}`, init);
+  return exports.default.fetch(`https://example.com${path}`, init);
 }
 
 export const api = {

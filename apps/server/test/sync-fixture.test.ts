@@ -64,6 +64,9 @@ describe("sync at realistic fixture scale", () => {
     expect(result.deleted).toBe(0);
   });
 
+  // 13 PBKDF2-SHA256 hashes (210k iterations each: the admin bootstrap + 12 teachers) comfortably
+  // clears vitest's default 5s timeout in isolation, but can brush against it under full-suite
+  // load — bump it rather than let this flake.
   it("creates the 12 fixture teacher accounts via the admin API", async () => {
     const admin = await bootstrapAndLogin({ email: "fixture-admin@example.org" });
     for (const teacher of testSchoolTeachers) {
@@ -75,5 +78,5 @@ describe("sync at realistic fixture scale", () => {
       });
       expect(user.role).toBe("teacher");
     }
-  });
+  }, 15_000);
 });

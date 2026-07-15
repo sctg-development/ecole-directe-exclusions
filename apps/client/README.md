@@ -31,6 +31,8 @@ assets). Set it only when the client is hosted apart from the API:
 
 ```bash
 VITE_API_URL=https://exclusions.example.org npm run build -w @exclusions/client
+# Or in dev:
+VITE_API_URL=http://localhost:8787 npm run build -w @exclusions/client
 ```
 
 ## Commands
