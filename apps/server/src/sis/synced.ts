@@ -18,30 +18,29 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-/** SIS provider factory, selected by the `SIS_PROVIDER` environment variable. */
+/**
+ * SisProvider backed by the D1 tables populated by the /sync/* endpoints (see
+ * apps/server/src/routes/sync.ts). Selected by SIS_PROVIDER = "synced" once a school's data is
+ * actually flowing in from the external sync worker.
+ */
 
-import type { Env } from "../env.js";
+import type { SchoolClass, Student } from "@exclusions/shared";
+import { listClasses } from "../db/classes.js";
+import { getStudent, listStudentsByClass } from "../db/students.js";
 import type { SisProvider } from "./provider.js";
-import { MockSisProvider } from "./mock.js";
-import { AplimSisProvider } from "./aplim.js";
-import { SyncedSisProvider } from "./synced.js";
 
-export type { SisProvider } from "./provider.js";
-export { MockSisProvider } from "./mock.js";
-export { AplimSisProvider } from "./aplim.js";
-export { SyncedSisProvider } from "./synced.js";
+export class SyncedSisProvider implements SisProvider {
+  constructor(private readonly db: D1Database) {}
 
-export function createSisProvider(env: Env): SisProvider {
-  switch (env.SIS_PROVIDER) {
-    case "mock":
-      return new MockSisProvider(env.SCHOOL_ID);
-    case "aplim":
-      return new AplimSisProvider();
-    case "synced":
-      return new SyncedSisProvider(env.DB);
-    default:
-      throw new Error(
-        `Unknown SIS_PROVIDER "${env.SIS_PROVIDER}" (expected "mock", "aplim" or "synced")`,
-      );
+  listClasses(): Promise<SchoolClass[]> {
+    return listClasses(this.db);
+  }
+
+  listStudents(classId: string): Promise<Student[]> {
+    return listStudentsByClass(this.db, classId);
+  }
+
+  getStudent(studentId: string): Promise<Student | null> {
+    return getStudent(this.db, studentId);
   }
 }

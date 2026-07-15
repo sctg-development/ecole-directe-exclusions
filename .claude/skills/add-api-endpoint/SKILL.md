@@ -53,6 +53,11 @@ source of truth; `API.md` is the human companion — they must agree.
 - Apply the auth middleware and an explicit role check (RBAC): follow the role column you wrote
   in `API.md`. Teachers see only their own exclusions — enforce `teacherId` scoping in the
   query, not in the client.
+- **Machine-to-machine endpoints** (called by another service, not a human/browser — e.g.
+  `/sync/*`) use `requireSyncApiKey` from `middleware/auth.ts` instead of `requireAuth`: a
+  static shared secret compared with `secretsEqual()`, no JWT/Role involved. Don't invent a new
+  `Role` value for this — `Role` is tied to human login, the admin Users UI, and JWT claims (see
+  `packages/shared/src/domain.ts`); a machine credential doesn't fit that model.
 - Data access goes through the repository layer (D1, `snake_case` → `camelCase` mapping) —
   no inline SQL in handlers.
 - If the endpoint changes exclusion status: use `canTransition()` from `@exclusions/shared`,

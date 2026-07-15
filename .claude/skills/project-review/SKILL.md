@@ -22,9 +22,11 @@ Run every item against the diff. Each unchecked item is a finding.
 
 ## GDPR red flags
 
-- [ ] New student data fields → challenge data minimization. The contract is SIS id +
-      denormalized display name + class name at incident time, nothing more (no birth dates,
-      no photos, no free-text student profiles).
+- [ ] New student data fields → challenge data minimization. The contract is: SIS id +
+      denormalized display name + class name at incident time (`exclusions`); the synced
+      class/student roster (`classes`, `students`, full-replace on every sync); and presence
+      observations (`student_presence_events`, pruned after `PRESENCE_RETENTION_DAYS`) — nothing
+      more (no birth dates, no photos, no grades, no free-text student profiles).
 - [ ] **Any cross-school data path is a bug**: one Worker + one D1 per school. No shared
       tables, no school-id columns implying a shared DB, no aggregation across environments.
 - [ ] No PII in logs (`console.log` of request bodies, emails, tokens) and no PII in push
@@ -36,7 +38,8 @@ Run every item against the diff. Each unchecked item is a finding.
 
 - [ ] Every new route is behind the auth middleware AND has an explicit role check matching
       the role column in `docs/API.md` (only `auth/login`, `auth/refresh`, `health` and
-      `auth/bootstrap` — guarded by `X-Bootstrap-Secret` — are public).
+      `auth/bootstrap` — guarded by `X-Bootstrap-Secret` — are public; `/sync/*` is
+      machine-to-machine, guarded by `X-Sync-Api-Key` via `requireSyncApiKey`, not a bearer JWT).
 - [ ] Teacher-scoped reads enforce `teacherId` server-side, not client-side.
 - [ ] No secrets in code, tests, or `wrangler.jsonc` (`JWT_SECRET`, `BOOTSTRAP_SECRET`, VAPID
       keys, FCM service account are wrangler secrets / `.dev.vars` only; `.dev.vars` is

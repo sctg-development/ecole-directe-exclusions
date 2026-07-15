@@ -24,12 +24,16 @@ graph LR
         WebPush["Web Push VAPID<br>(web/PWA)"]
     end
 
+    subgraph Sync["Sync worker (external, future)"]
+        SyncWorker["École Directe / APLIM<br>sync worker"]
+    end
+
     subgraph Cloudflare["Cloudflare<br>(one stack / school)"]
         Worker["Worker<br>(Hono, TypeScript)"]
         REST["REST API /api/v1/*"]
         Static["Static assets<br>(web app)"]
-        Cron["Cron trigger<br>(escalation)"]
-        SIS["SIS adapter<br>(mock → APLIM)"]
+        Cron["Cron trigger<br>(escalation + presence pruning)"]
+        SIS["SIS adapter<br>(mock / aplim / synced)"]
         D1["D1 (SQLite)<br>— per-school DB"]
     end
 
@@ -43,6 +47,7 @@ graph LR
     Worker --> D1
     FCM -->|push notifications| Worker
     WebPush -->|push notifications| Worker
+    SyncWorker -->|"PUT/POST /api/v1/sync/*<br>(X-Sync-Api-Key)"| Worker
 ```
 
 - **One fully independent deployment per school** (separate Worker, separate D1 database,
@@ -153,10 +158,15 @@ Notified events: new exclusion → all vie-scolaire devices; escalation (`missin
 vie-scolaire devices (re-alert); arrival/resolution → the creating teacher. Push delivery is
 best-effort: the dashboard also polls, so a lost push never loses data.
 
-## SIS adapters (classes & students)
+## SIS adapters (classes, students & presence)
 
-APLIM Charlemagne / École Directe does not expose an API yet. The server defines a provider
-interface and ships a deterministic mock:
+APLIM Charlemagne / École Directe does not expose a live query API. Instead, once the publisher
+grants access, a **separate sync worker** (not part of this repo) pulls classes, students and
+point-in-time presence from École Directe and **pushes** them into this Worker via
+`/api/v1/sync/*` (machine-to-machine, `X-Sync-Api-Key` auth — see docs/API.md, "SIS sync"). This
+Worker stores that data in its own D1 (`classes`, `students`, `student_presence_events` —
+docs/DATA-MODEL.md) and serves it back out through the same `SisProvider` interface the rest of
+the server already uses:
 
 ```ts
 interface SisProvider {
@@ -167,12 +177,20 @@ interface SisProvider {
 ```
 
 - `MockSisProvider` — deterministic, seeded by `SCHOOL_ID`; generates realistic French class
-  names (Seconde/Première/Terminale…) and student rosters matching each school's real size.
-- `AplimSisProvider` — placeholder for the future APLIM API integration (or any other SIS).
-- Selected by the `SIS_PROVIDER` environment variable (`mock` | `aplim`).
+  names (Seconde/Première/Terminale…) and student rosters matching each school's real size. Used
+  for local dev and tests.
+- `AplimSisProvider` — unimplemented placeholder; kept for a possible future direct API
+  integration if École Directe ever exposes a pull-style query endpoint.
+- `SyncedSisProvider` — reads `listClasses`/`listStudents`/`getStudent` from the D1 tables
+  populated by the sync worker above. This is the production path once a school's sync is live.
+- Selected by the `SIS_PROVIDER` environment variable (`mock` | `aplim` | `synced`).
 
-Exclusions **denormalize** the student and class display names at creation time, so historical
-records stay intact even if the SIS data changes (and the SIS holds the minimum data needed).
+`GET /classes/:id/presence` (docs/API.md) always reads the synced presence log directly,
+independent of `SIS_PROVIDER` — presence has no mock/APLIM equivalent, it only exists once a
+sync worker is pushing it in.
+
+Exclusions still **denormalize** the student and class display names at creation time, so
+historical records stay intact even if the synced roster changes underneath them later.
 
 ## Per-school configuration
 

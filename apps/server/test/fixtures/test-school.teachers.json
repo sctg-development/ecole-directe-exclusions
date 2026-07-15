@@ -1,0 +1,86 @@
+[
+  {
+    "email": "nathalie.perrot@lycee-test.example.org",
+    "displayName": "Nathalie Perrot",
+    "role": "teacher",
+    "password": "enseignant-test-2026",
+    "id": "teacher-fixture-01"
+  },
+  {
+    "email": "julien.faucher@lycee-test.example.org",
+    "displayName": "Julien Faucher",
+    "role": "teacher",
+    "password": "enseignant-test-2026",
+    "id": "teacher-fixture-02"
+  },
+  {
+    "email": "sophie.renard@lycee-test.example.org",
+    "displayName": "Sophie Renard",
+    "role": "teacher",
+    "password": "enseignant-test-2026",
+    "id": "teacher-fixture-03"
+  },
+  {
+    "email": "marc.delattre@lycee-test.example.org",
+    "displayName": "Marc Delattre",
+    "role": "teacher",
+    "password": "enseignant-test-2026",
+    "id": "teacher-fixture-04"
+  },
+  {
+    "email": "claire.aubert@lycee-test.example.org",
+    "displayName": "Claire Aubert",
+    "role": "teacher",
+    "password": "enseignant-test-2026",
+    "id": "teacher-fixture-05"
+  },
+  {
+    "email": "vincent.lemoine@lycee-test.example.org",
+    "displayName": "Vincent Lemoine",
+    "role": "teacher",
+    "password": "enseignant-test-2026",
+    "id": "teacher-fixture-06"
+  },
+  {
+    "email": "isabelle.charrier@lycee-test.example.org",
+    "displayName": "Isabelle Charrier",
+    "role": "teacher",
+    "password": "enseignant-test-2026",
+    "id": "teacher-fixture-07"
+  },
+  {
+    "email": "olivier.brunet@lycee-test.example.org",
+    "displayName": "Olivier Brunet",
+    "role": "teacher",
+    "password": "enseignant-test-2026",
+    "id": "teacher-fixture-08"
+  },
+  {
+    "email": "sandrine.guillot@lycee-test.example.org",
+    "displayName": "Sandrine Guillot",
+    "role": "teacher",
+    "password": "enseignant-test-2026",
+    "id": "teacher-fixture-09"
+  },
+  {
+    "email": "thierry.marchal@lycee-test.example.org",
+    "displayName": "Thierry Marchal",
+    "role": "teacher",
+    "password": "enseignant-test-2026",
+    "id": "teacher-fixture-10"
+  },
+  {
+    "email": "aurelie.cordier@lycee-test.example.org",
+    "displayName": "Aurélie Cordier",
+    "role": "teacher",
+    "password": "enseignant-test-2026",
+    "id": "teacher-fixture-11"
+  },
+  {
+    "email": "david.pelletier@lycee-test.example.org",
+    "displayName": "David Pelletier",
+    "role": "teacher",
+    "password": "enseignant-test-2026",
+    "id": "teacher-fixture-12"
+  }
+]

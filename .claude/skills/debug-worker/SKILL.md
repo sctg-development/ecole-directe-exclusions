@@ -26,6 +26,9 @@ From `apps/server/`:
 npx wrangler d1 execute DB --local --command "SELECT id, status, student_name FROM exclusions ORDER BY created_at DESC LIMIT 10"
 npx wrangler d1 execute DB --local --command "SELECT * FROM exclusion_events WHERE exclusion_id = '...'"
 npx wrangler d1 execute DB --local --command "SELECT email, role, disabled FROM users"
+npx wrangler d1 execute DB --local --command "SELECT id, name, level, student_count, synced_at FROM classes"
+npx wrangler d1 execute DB --local --command "SELECT id, first_name, last_name, class_id FROM students WHERE class_id = '...'"
+npx wrangler d1 execute DB --local --command "SELECT student_id, present, observed_at FROM student_presence_events ORDER BY observed_at DESC LIMIT 20"
 ```
 
 `DB` is the binding name from `wrangler.jsonc`. Columns are `snake_case` (see
@@ -59,8 +62,11 @@ VAPID_PUBLIC_KEY=BASE64URL_UNCOMPRESSED_P256_PUBLIC_KEY
 VAPID_PRIVATE_KEY=BASE64URL_P256_PRIVATE_KEY
 ```
 
-A fifth secret, `FCM_SERVICE_ACCOUNT` (Firebase service-account JSON for Android/iOS push), is
-optional — when unset the FCM sender is a no-op that logs (see `wrangler.jsonc`).
+Two more secrets are optional: `FCM_SERVICE_ACCOUNT` (Firebase service-account JSON for
+Android/iOS push) — when unset the FCM sender is a no-op that logs; and `SYNC_API_KEY` (any
+string) — when unset, `/api/v1/sync/*` always returns `401` (see `wrangler.jsonc`). Also set
+`PRESENCE_RETENTION_DAYS` as a plain var in `wrangler.jsonc` if you need to test pruning with a
+non-default window — it's not a secret.
 
 Generate a valid VAPID pair once with `npx web-push generate-vapid-keys` (one-off, not a
 project dependency). To receive an actual notification, run the client
@@ -105,6 +111,43 @@ curl -s http://localhost:8787/api/v1/exclusions/active -H "Authorization: Bearer
 ```
 
 Errors always look like `{ "error": { "code": "...", "message": "..." } }`.
+
+### SIS sync (machine-to-machine, requires `SYNC_API_KEY` in `.dev.vars`)
+
+Auth is `X-Sync-Api-Key`, not a bearer token — call order matters (classes, then students, then
+presence):
+
+```sh
+export SYNC_KEY=local-sync-api-key   # must match SYNC_API_KEY in .dev.vars
+
+curl -s -X PUT http://localhost:8787/api/v1/sync/classes \
+  -H "X-Sync-Api-Key: $SYNC_KEY" -H "Content-Type: application/json" \
+  -d '{"classes":[{"id":"cls-1","name":"Terminale A","level":"Terminale","studentCount":1}]}'
+
+curl -s -X PUT http://localhost:8787/api/v1/sync/students \
+  -H "X-Sync-Api-Key: $SYNC_KEY" -H "Content-Type: application/json" \
+  -d '{"students":[{"id":"stu-1","firstName":"Ada","lastName":"Lovelace","classId":"cls-1","className":"Terminale A"}]}'
+
+curl -s -X POST http://localhost:8787/api/v1/sync/presence \
+  -H "X-Sync-Api-Key: $SYNC_KEY" -H "Content-Type: application/json" \
+  -d '{"observations":[{"studentId":"stu-1","present":true,"observedAt":"2026-09-01T08:00:00Z"}]}'
+
+# Read it back (bearer JWT, vie-scolaire/admin only)
+curl -s http://localhost:8787/api/v1/classes/cls-1/presence -H "Authorization: Bearer $TOKEN"
+```
+
+For a realistic dataset instead of one-off fixtures, `scripts/seed-test-school.mjs` pushes a
+checked-in fixture (8 classes, 247 students, 12 teachers) through this exact flow in one shot:
+
+```sh
+ADMIN_EMAIL=admin@example.org ADMIN_PASSWORD=correct-horse-battery \
+  SYNC_API_KEY=$SYNC_KEY npm run seed:test-school -w @exclusions/server
+```
+
+`PUT /sync/classes` and `PUT /sync/students` are full-replace: set `SIS_PROVIDER=synced` in
+`wrangler.jsonc` to have `GET /classes`/`GET /classes/:id/students` read the synced roster
+instead of the mock; `GET /classes/:id/presence` always reads the synced presence log regardless
+of `SIS_PROVIDER`.
 
 ## Testing the cron trigger (escalation to `missing`)
 

@@ -16,7 +16,9 @@
     "typegen": "wrangler types",
     "test": "vitest",
     "test:run": "vitest run",
-    "db:migrate:local": "wrangler d1 migrations apply DB --local"
+    "db:migrate:local": "wrangler d1 migrations apply DB --local",
+    "generate:test-school-fixture": "node scripts/generate-test-school-fixture.mjs",
+    "seed:test-school": "node scripts/seed-test-school.mjs"
   },
   "dependencies": {
     "@exclusions/shared": "*",
@@ -28,6 +30,6 @@
     "@cloudflare/workers-types": "^5.20260712.1",
     "typescript": "^6.0.3",
     "vitest": "^4.1.10",
-    "wrangler": "^4.109.0"
+    "wrangler": "^4.111.0"
   }
 }

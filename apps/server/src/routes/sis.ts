@@ -18,13 +18,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-/** SIS routes: classes and rosters, served by the configured provider (mock or APLIM). */
+/**
+ * SIS routes: classes and rosters, served by the configured provider (mock, APLIM or the
+ * D1-synced roster), plus the synced presence log (see routes/sync.ts for ingestion).
+ */
 
 import { Hono } from "hono";
 import type { AppEnv } from "../env.js";
 import { errorResponse } from "../lib/errors.js";
-import { requireAuth } from "../middleware/auth.js";
+import { requireAuth, requireRole } from "../middleware/auth.js";
 import { createSisProvider } from "../sis/index.js";
+import { getClass } from "../db/classes.js";
+import { latestPresenceByClass } from "../db/presence.js";
 
 export const sisRoutes = new Hono<AppEnv>();
 
@@ -44,3 +49,17 @@ sisRoutes.get("/classes/:id/students", requireAuth, async (c) => {
   }
   return c.json(await provider.listStudents(classId));
 });
+
+// GET /classes/:id/presence — latest synced presence per student; not tied to SIS_PROVIDER,
+// since presence always lives in the sync tables regardless of which roster provider is active.
+sisRoutes.get(
+  "/classes/:id/presence",
+  requireAuth,
+  requireRole("vie-scolaire", "admin"),
+  async (c) => {
+    const classId = c.req.param("id");
+    const schoolClass = await getClass(c.env.DB, classId);
+    if (schoolClass === null) return errorResponse(404, "not_found", "Class not found");
+    return c.json(await latestPresenceByClass(c.env.DB, classId));
+  },
+);

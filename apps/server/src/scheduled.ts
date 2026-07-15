@@ -22,12 +22,17 @@ SOFTWARE.
  * Cron sweep (every 5 minutes):
  * - escalate `pending`/`acknowledged` exclusions older than `ESCALATION_MINUTES` to `missing`
  *   (system audit event + escalation push to the vie scolaire);
- * - prune `login_attempts` older than 24 h (GDPR, docs/DATA-MODEL.md).
+ * - prune `login_attempts` older than 24 h (GDPR, docs/DATA-MODEL.md);
+ * - prune `student_presence_events` older than `PRESENCE_RETENTION_DAYS` (GDPR, docs/GDPR.md).
  *
  * `now` is a parameter so tests can inject a clock.
  */
 
-import { canTransition, DEFAULT_ESCALATION_MINUTES } from "@exclusions/shared";
+import {
+  canTransition,
+  DEFAULT_ESCALATION_MINUTES,
+  DEFAULT_PRESENCE_RETENTION_DAYS,
+} from "@exclusions/shared";
 import type { Env } from "./env.js";
 import {
   applyTransitionToExclusion,
@@ -36,6 +41,7 @@ import {
 } from "./db/exclusions.js";
 import { insertEventStmt } from "./db/events.js";
 import { pruneLoginAttemptsBefore } from "./db/loginAttempts.js";
+import { prunePresenceBefore } from "./db/presence.js";
 import { notifyEscalation } from "./lib/notifications.js";
 
 const LOGIN_ATTEMPTS_RETENTION_HOURS = 24;
@@ -43,6 +49,7 @@ const LOGIN_ATTEMPTS_RETENTION_HOURS = 24;
 export interface ScheduledRunResult {
   escalated: number;
   prunedLoginAttempts: number;
+  prunedPresenceEvents: number;
 }
 
 export async function runScheduled(env: Env, now: Date): Promise<ScheduledRunResult> {
@@ -82,10 +89,20 @@ export async function runScheduled(env: Env, now: Date): Promise<ScheduledRunRes
   ).toISOString();
   const prunedLoginAttempts = await pruneLoginAttemptsBefore(env.DB, pruneBefore);
 
-  if (escalated > 0 || prunedLoginAttempts > 0) {
+  const presenceRetentionDays =
+    Number.parseInt(env.PRESENCE_RETENTION_DAYS, 10) > 0
+      ? Number.parseInt(env.PRESENCE_RETENTION_DAYS, 10)
+      : DEFAULT_PRESENCE_RETENTION_DAYS;
+  const presenceCutoffIso = new Date(
+    now.getTime() - presenceRetentionDays * 86_400_000,
+  ).toISOString();
+  const prunedPresenceEvents = await prunePresenceBefore(env.DB, presenceCutoffIso);
+
+  if (escalated > 0 || prunedLoginAttempts > 0 || prunedPresenceEvents > 0) {
     console.log(
-      `cron sweep: escalated ${escalated} exclusion(s), pruned ${prunedLoginAttempts} login attempt(s)`,
+      `cron sweep: escalated ${escalated} exclusion(s), pruned ${prunedLoginAttempts} login ` +
+        `attempt(s), pruned ${prunedPresenceEvents} presence event(s)`,
     );
   }
-  return { escalated, prunedLoginAttempts };
+  return { escalated, prunedLoginAttempts, prunedPresenceEvents };
 }

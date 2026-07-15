@@ -30,6 +30,9 @@ import type { LoginResponse, Role, User } from "@exclusions/shared";
 /** Matches the `BOOTSTRAP_SECRET` var in test/wrangler.test.jsonc. */
 export const BOOTSTRAP_SECRET = "test-bootstrap-secret";
 
+/** Matches the `SYNC_API_KEY` var in test/wrangler.test.jsonc. */
+export const SYNC_API_KEY = "test-sync-api-key";
+
 /** A password satisfying `MIN_PASSWORD_LENGTH` (10) used across fixtures. */
 export const TEST_PASSWORD = "correct-horse-battery-staple";
 
@@ -61,6 +64,14 @@ export const api = {
     request("PATCH", path, { body, ...(token !== undefined ? { token } : {}) }),
   delete: (path: string, token?: string): Promise<Response> =>
     request("DELETE", path, token !== undefined ? { token } : {}),
+};
+
+/** Machine-to-machine sync requests, authenticated with `X-Sync-Api-Key` instead of a bearer token. */
+export const syncApi = {
+  put: (path: string, body: unknown, key: string = SYNC_API_KEY): Promise<Response> =>
+    request("PUT", path, { body, headers: { "X-Sync-Api-Key": key } }),
+  post: (path: string, body: unknown, key: string = SYNC_API_KEY): Promise<Response> =>
+    request("POST", path, { body, headers: { "X-Sync-Api-Key": key } }),
 };
 
 /** Creates the first admin of a fresh D1 (the only user `POST /auth/bootstrap` ever allows). */

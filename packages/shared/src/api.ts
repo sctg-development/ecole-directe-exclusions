@@ -26,6 +26,7 @@ import type {
   PushSubscriptionInfo,
   SchoolClass,
   Student,
+  StudentPresence,
   User,
 } from "./domain.js";
 import { MIN_PASSWORD_LENGTH } from "./constants.js";
@@ -316,6 +317,14 @@ export const pushSubscriptionInfoSchema = z.object({
 });
 assertExact<z.infer<typeof pushSubscriptionInfoSchema>, PushSubscriptionInfo>(true);
 
+export const studentPresenceSchema = z.object({
+  studentId: z.string(),
+  studentName: z.string(),
+  present: z.boolean(),
+  observedAt: z.string(),
+});
+assertExact<z.infer<typeof studentPresenceSchema>, StudentPresence>(true);
+
 /** Concrete pagination wrapper for `Exclusion` — the only `Paginated<T>` usage in the API. */
 export const paginatedExclusionSchema = z.object({
   items: z.array(exclusionSchema),
@@ -438,3 +447,40 @@ export const vapidPublicKeyResponseSchema = z.object({
   publicKey: z.string(),
 });
 assertExact<z.infer<typeof vapidPublicKeyResponseSchema>, VapidPublicKeyResponse>(true);
+
+// --- SIS sync (machine-to-machine, see docs/API.md "SIS sync") ---
+
+/** Full-replace sync: rows not present in the payload are deleted from the mirror. */
+export const syncClassesRequestSchema = z.object({
+  classes: z.array(schoolClassSchema).min(1),
+});
+export type SyncClassesRequest = z.infer<typeof syncClassesRequestSchema>;
+
+export const syncStudentsRequestSchema = z.object({
+  students: z.array(studentSchema).min(1),
+});
+export type SyncStudentsRequest = z.infer<typeof syncStudentsRequestSchema>;
+
+export const syncPresenceRequestSchema = z.object({
+  observations: z
+    .array(
+      z.object({
+        studentId: z.string().min(1),
+        present: z.boolean(),
+        observedAt: isoDateOrDateTime,
+      }),
+    )
+    .min(1),
+});
+export type SyncPresenceRequest = z.infer<typeof syncPresenceRequestSchema>;
+
+export const syncResultSchema = z.object({
+  upserted: z.number(),
+  deleted: z.number(),
+});
+export type SyncResult = z.infer<typeof syncResultSchema>;
+
+export const syncPresenceResultSchema = z.object({
+  inserted: z.number(),
+});
+export type SyncPresenceResult = z.infer<typeof syncPresenceResultSchema>;

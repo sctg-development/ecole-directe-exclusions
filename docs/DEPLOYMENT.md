@@ -46,7 +46,7 @@ Worker that needs it.
 
 ## 3. Set the secrets
 
-Each environment needs five secrets. Set each one with:
+Each environment needs up to six secrets. Set each one with:
 
 ```bash
 npx wrangler secret put <NAME> --env <school-id>   # then paste the value
@@ -59,6 +59,7 @@ npx wrangler secret put <NAME> --env <school-id>   # then paste the value
 | `VAPID_PUBLIC_KEY`    | `node scripts/generate-vapid-keys.mjs` (from the repo root) — use the printed public key. Generate **one pair per school** and keep the pair together.                                                                         |
 | `VAPID_PRIVATE_KEY`   | Same script run — use the printed private key.                                                                                                                                                                                 |
 | `FCM_SERVICE_ACCOUNT` | Firebase console → _Project settings → Service accounts → Generate new private key_ → downloads a JSON file. The secret is that JSON **on a single line**: `jq -c . < service-account.json`. Needed for Android/iOS push only. |
+| `SYNC_API_KEY`        | `openssl rand -base64 32` — shared secret the external SIS-sync worker sends as `X-Sync-Api-Key`. Optional: leave unset until a sync worker actually exists, which disables `/api/v1/sync/*` (every call gets `401`).          |
 
 Notes:
 
@@ -67,6 +68,8 @@ Notes:
   refresh token flow at worst).
 - If a school does not use mobile apps yet, you can defer `FCM_SERVICE_ACCOUNT`; web push only
   needs the VAPID pair.
+- `PRESENCE_RETENTION_DAYS` (default `30`) is a plain `var` in `wrangler.jsonc`, not a secret —
+  adjust it per school like `ESCALATION_MINUTES`/`RETENTION_MONTHS`.
 
 ## 4. Build and deploy
 

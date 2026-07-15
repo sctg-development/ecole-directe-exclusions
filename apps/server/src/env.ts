@@ -42,12 +42,16 @@ export interface Env {
   RETENTION_MONTHS: string;
   /** VAPID `sub` claim, e.g. "mailto:ops@example.org". */
   VAPID_SUBJECT: string;
+  /** Days to retain `student_presence_events` rows; pruned automatically by the cron handler. */
+  PRESENCE_RETENTION_DAYS: string;
 
   // --- Secrets (`wrangler secret put`) ---
   /** HS256 signing key for access tokens. */
   JWT_SECRET: string;
   /** One-time secret enabling POST /api/v1/auth/bootstrap (first admin creation). */
   BOOTSTRAP_SECRET?: string;
+  /** Shared secret for the external SIS-sync worker (`X-Sync-Api-Key` header, `/sync/*`). */
+  SYNC_API_KEY?: string;
   /** Web Push VAPID public key (base64url, uncompressed P-256 point). */
   VAPID_PUBLIC_KEY?: string;
   /** Web Push VAPID private key (base64url, 32-byte scalar). */

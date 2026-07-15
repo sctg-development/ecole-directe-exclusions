@@ -27,7 +27,10 @@ SOFTWARE.
 import { env } from "cloudflare:test";
 import { beforeAll, describe, expect, it } from "vitest";
 import type { Exclusion, ExclusionWithEvents } from "@exclusions/shared";
+import { upsertClasses } from "../src/db/classes.js";
 import { recordLoginAttempt } from "../src/db/loginAttempts.js";
+import { insertPresenceObservations } from "../src/db/presence.js";
+import { upsertStudents } from "../src/db/students.js";
 import { runScheduled } from "../src/scheduled.js";
 import { MockSisProvider } from "../src/sis/mock.js";
 import { api, bootstrapAndLogin, createAndLoginUser } from "./helpers.js";
@@ -163,6 +166,50 @@ describe("runScheduled: login_attempts pruning", () => {
       "SELECT COUNT(*) AS n FROM login_attempts WHERE email = ?",
     )
       .bind("prune-test@example.org")
+      .first<{ n: number }>();
+    expect(remaining?.n).toBe(1);
+  });
+});
+
+describe("runScheduled: student_presence_events pruning", () => {
+  it("prunes presence observations older than PRESENCE_RETENTION_DAYS (30 in test config)", async () => {
+    const now = new Date("2026-03-15T12:00:00.000Z");
+    await upsertClasses(
+      env.DB,
+      [{ id: "cls-prune-test", name: "Prune Test", level: "Seconde", studentCount: 1 }],
+      now.toISOString(),
+    );
+    await upsertStudents(
+      env.DB,
+      [
+        {
+          id: "stu-prune-test",
+          firstName: "Prune",
+          lastName: "Test",
+          classId: "cls-prune-test",
+          className: "Prune Test",
+        },
+      ],
+      now.toISOString(),
+    );
+    const old = new Date(now.getTime() - 40 * 86_400_000).toISOString();
+    const recent = new Date(now.getTime() - 1 * 86_400_000).toISOString();
+    await insertPresenceObservations(
+      env.DB,
+      [
+        { studentId: "stu-prune-test", present: true, observedAt: old },
+        { studentId: "stu-prune-test", present: true, observedAt: recent },
+      ],
+      now.toISOString(),
+    );
+
+    const result = await runScheduled(env, now);
+    expect(result.prunedPresenceEvents).toBeGreaterThanOrEqual(1);
+
+    const remaining = await env.DB.prepare(
+      "SELECT COUNT(*) AS n FROM student_presence_events WHERE student_id = ?",
+    )
+      .bind("stu-prune-test")
       .first<{ n: number }>();
     expect(remaining?.n).toBe(1);
   });

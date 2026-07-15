@@ -18,13 +18,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-/** Bearer access-token authentication and role gating. */
+/** Bearer access-token authentication, role gating, and the sync-worker API key check. */
 
 import type { MiddlewareHandler } from "hono";
 import type { Role } from "@exclusions/shared";
 import type { AppEnv } from "../env.js";
 import { verifyAccessToken } from "../lib/tokens.js";
 import { errorResponse } from "../lib/errors.js";
+import { secretsEqual } from "../lib/crypto.js";
 
 /** Verifies `Authorization: Bearer <jwt>` and exposes the caller as `c.get("auth")`. */
 export const requireAuth: MiddlewareHandler<AppEnv> = async (c, next) => {
@@ -50,3 +51,22 @@ export function requireRole(...roles: Role[]): MiddlewareHandler<AppEnv> {
     await next();
   };
 }
+
+/**
+ * Verifies `X-Sync-Api-Key` for the machine-to-machine SIS-sync endpoints (`/sync/*`) — no
+ * JWT/Role involved, same static-secret shape as the `X-Bootstrap-Secret` check in
+ * `routes/auth.ts`. Unset `SYNC_API_KEY` disables sync entirely (every call is unauthorized).
+ */
+export const requireSyncApiKey: MiddlewareHandler<AppEnv> = async (c, next) => {
+  const provided = c.req.header("X-Sync-Api-Key");
+  const expected = c.env.SYNC_API_KEY;
+  if (
+    expected === undefined ||
+    expected === "" ||
+    provided === undefined ||
+    !(await secretsEqual(provided, expected))
+  ) {
+    return errorResponse(401, "unauthorized", "Invalid sync API key");
+  }
+  await next();
+};

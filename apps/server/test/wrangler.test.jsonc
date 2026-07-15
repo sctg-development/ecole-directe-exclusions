@@ -22,9 +22,11 @@
     "ESCALATION_MINUTES": "10",
     "RETENTION_MONTHS": "24",
     "VAPID_SUBJECT": "mailto:test@example.org",
+    "PRESENCE_RETENTION_DAYS": "30",
     // Test-only stand-ins for the wrangler secrets (never reuse in a deployment).
     "JWT_SECRET": "test-jwt-secret-not-for-production",
     "BOOTSTRAP_SECRET": "test-bootstrap-secret",
     "VAPID_PUBLIC_KEY": "BDd3_hVL9fZi9Ybo2UUY6kOPZx7PjbtGVc9blJZeJ4msLGFyC0KUFcQ9ZI7PwXZikXHIll_hHrGKZ7XPRHV1Tbo",
+    "SYNC_API_KEY": "test-sync-api-key",
   },
 }

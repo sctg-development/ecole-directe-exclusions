@@ -9,7 +9,8 @@ auth required).
 ## Conventions
 
 - **Auth**: `Authorization: Bearer <accessToken>` on every route except `POST /auth/bootstrap`
-  (guarded by `X-Bootstrap-Secret`), `POST /auth/login`, `POST /auth/refresh` and `GET /health`.
+  (guarded by `X-Bootstrap-Secret`), `POST /auth/login`, `POST /auth/refresh`, `GET /health`,
+  and the `/sync/*` routes (guarded by `X-Sync-Api-Key`, see "SIS sync" below).
 - **Errors**: `{ "error": { "code": string, "message": string } }` with a matching HTTP status.
   Codes include `invalid_credentials`, `unauthorized`, `forbidden`, `not_found`,
   `validation_error`, `invalid_transition`, `rate_limited`, `conflict`, `internal`.
@@ -42,14 +43,39 @@ auth required).
 
 Users are never hard-deleted (audit integrity) — set `disabled: true`.
 
-## SIS (classes & students)
+## SIS (classes, students & presence)
 
-| Method & path               | Role | Response                                                          |
-| --------------------------- | ---- | ----------------------------------------------------------------- |
-| `GET /classes`              | any  | → `SchoolClass[]` — `{ id, name, level, studentCount }`           |
-| `GET /classes/:id/students` | any  | → `Student[]` — `{ id, firstName, lastName, classId, className }` |
+| Method & path               | Role                | Response                                                                  |
+| --------------------------- | ------------------- | ------------------------------------------------------------------------- |
+| `GET /classes`              | any                 | → `SchoolClass[]` — `{ id, name, level, studentCount }`                   |
+| `GET /classes/:id/students` | any                 | → `Student[]` — `{ id, firstName, lastName, classId, className }`         |
+| `GET /classes/:id/presence` | vie-scolaire, admin | → `StudentPresence[]` — `{ studentId, studentName, present, observedAt }` |
 
-Served by the configured `SisProvider` (mock today, APLIM later).
+`GET /classes` and `GET /classes/:id/students` are served by the configured `SisProvider`: `mock`
+(deterministic fixtures, default), `aplim` (unimplemented placeholder), or `synced` (reads the
+roster synced via the endpoints below — see docs/ARCHITECTURE.md, "SIS adapters"). `GET
+/classes/:id/presence` always reads the synced presence log regardless of `SIS_PROVIDER`; students
+never observed are omitted from the response.
+
+## SIS sync (machine-to-machine)
+
+Called by an external sync worker, not a human/browser client — every request requires header
+`X-Sync-Api-Key: <SYNC_API_KEY>` instead of a bearer token (timing-safe comparison, same
+mechanism as `X-Bootstrap-Secret`). Unset `SYNC_API_KEY` disables all three routes (`401` on
+every call). **Call order matters**: sync classes, then students, then presence — students
+reference a `classId` and presence observations reference a `studentId`.
+
+| Method & path         | Body → Response                                                                 |
+| --------------------- | ------------------------------------------------------------------------------- |
+| `PUT /sync/classes`   | `{ classes: SchoolClass[] }` → `{ upserted, deleted }` (200)                    |
+| `PUT /sync/students`  | `{ students: Student[] }` → `{ upserted, deleted }` (200)                       |
+| `POST /sync/presence` | `{ observations: [{ studentId, present, observedAt }] }` → `{ inserted }` (201) |
+
+`PUT /sync/classes` and `PUT /sync/students` are **full-replace syncs**: every call is expected
+to carry the complete current roster; any row not present in the payload is deleted (an empty
+array is rejected with `400 validation_error` rather than silently wiping the roster).
+`POST /sync/presence` is append-only — observations are never deleted by a later sync, only
+pruned automatically after `PRESENCE_RETENTION_DAYS` (default 30, see docs/GDPR.md).
 
 ## Exclusions
 

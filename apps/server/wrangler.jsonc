@@ -13,6 +13,8 @@
  *   - VAPID_PRIVATE_KEY    Web Push VAPID private key (base64url, 32-byte scalar)
  *   - FCM_SERVICE_ACCOUNT  optional Firebase service-account JSON (Android/iOS push);
  *                          when unset the FCM sender is a no-op that logs.
+ *   - SYNC_API_KEY         optional shared secret for the external SIS-sync worker
+ *                          (X-Sync-Api-Key header, /api/v1/sync/*); unset disables sync.
  */
 {
   "$schema": "node_modules/wrangler/config-schema.json",
@@ -49,6 +51,7 @@
     "ESCALATION_MINUTES": "10",
     "RETENTION_MONTHS": "24",
     "VAPID_SUBJECT": "mailto:ronan.le_meillat@cdvl59.eu.org",
+    "PRESENCE_RETENTION_DAYS": "30",
   },
   "env": {
     "apprentis-auteuil": {
@@ -74,6 +77,7 @@
         "ESCALATION_MINUTES": "10",
         "RETENTION_MONTHS": "24",
         "VAPID_SUBJECT": "mailto:ronan.le_meillat@cdvl59.eu.org",
+        "PRESENCE_RETENTION_DAYS": "30",
       },
     },
     "saint-dominique": {
@@ -99,6 +103,7 @@
         "ESCALATION_MINUTES": "10",
         "RETENTION_MONTHS": "24",
         "VAPID_SUBJECT": "mailto:ronan.le_meillat@cdvl59.eu.org",
+        "PRESENCE_RETENTION_DAYS": "30",
       },
     },
     "saint-paul": {
@@ -124,6 +129,7 @@
         "ESCALATION_MINUTES": "10",
         "RETENTION_MONTHS": "24",
         "VAPID_SUBJECT": "mailto:ronan.le_meillat@cdvl59.eu.org",
+        "PRESENCE_RETENTION_DAYS": "30",
       },
     },
   },

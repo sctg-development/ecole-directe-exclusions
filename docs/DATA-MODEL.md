@@ -98,10 +98,59 @@ CREATE TABLE push_subscriptions (
 CREATE INDEX idx_push_subscriptions_user ON push_subscriptions(user_id);
 ```
 
+`0002_sis_sync.sql` (see docs/ARCHITECTURE.md, "SIS adapters" — fed by the external sync worker
+via `/api/v1/sync/*`, not application-generated like the tables above):
+
+```sql
+-- Full-replace mirror of the SIS class roster.
+CREATE TABLE classes (
+  id            TEXT PRIMARY KEY,   -- SIS class id
+  name          TEXT NOT NULL,
+  level         TEXT NOT NULL,
+  student_count INTEGER NOT NULL,
+  synced_at     TEXT NOT NULL
+);
+
+-- Full-replace mirror of the SIS student roster. class_name is denormalized (not joined) to
+-- match the shared Student type, same convention as exclusions.student_name/class_name.
+CREATE TABLE students (
+  id          TEXT PRIMARY KEY,     -- SIS student id
+  first_name  TEXT NOT NULL,
+  last_name   TEXT NOT NULL,
+  class_id    TEXT NOT NULL REFERENCES classes(id),
+  class_name  TEXT NOT NULL,
+  synced_at   TEXT NOT NULL
+);
+CREATE INDEX idx_students_class ON students(class_id);
+
+-- Append-only presence observations. Pruned automatically by the cron handler after
+-- PRESENCE_RETENTION_DAYS (see docs/GDPR.md) — a materially more sensitive category than
+-- anything else in this schema (a timeline of student whereabouts).
+CREATE TABLE student_presence_events (
+  id          TEXT PRIMARY KEY,
+  student_id  TEXT NOT NULL REFERENCES students(id),
+  present     INTEGER NOT NULL,     -- 0/1
+  observed_at TEXT NOT NULL,        -- as reported by the source system
+  recorded_at TEXT NOT NULL         -- when this Worker stored it
+);
+CREATE INDEX idx_presence_student_time ON student_presence_events(student_id, observed_at DESC);
+CREATE INDEX idx_presence_observed_at ON student_presence_events(observed_at);
+```
+
 ## Retention (GDPR)
 
 - Exclusions and events are school-year data. A documented manual procedure (see
   [GDPR.md](./GDPR.md)) purges records older than the configured retention period
   (`RETENTION_MONTHS`, default 24).
 - `login_attempts` rows older than 24 h are pruned opportunistically by the cron handler.
-- Student data stored is the strict minimum: SIS identifier and display name at incident time.
+- `classes`/`students` are an always-current mirror of the SIS: every sync fully replaces the
+  roster (rows absent from the payload are deleted), so there is no independent retention period
+  — the data is only ever as old as the last successful sync.
+- `student_presence_events` rows older than `PRESENCE_RETENTION_DAYS` (default 30) are pruned
+  automatically by the cron handler — deliberately short and automatic, since this is the most
+  sensitive data category in this schema (a timeline of student whereabouts), unlike the
+  documented _manual_ exclusion purge above.
+- Student data stored: SIS identifier + display name denormalized at incident time
+  (`exclusions`); the synced class/student roster (`classes`, `students`); and short-lived
+  presence observations (`student_presence_events`). See [GDPR.md](./GDPR.md) for the full
+  inventory and purpose.

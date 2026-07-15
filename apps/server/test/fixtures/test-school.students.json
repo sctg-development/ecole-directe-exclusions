@@ -1,0 +1,1731 @@
+[
+  {
+    "id": "stu-fixture-0001",
+    "firstName": "Mathis",
+    "lastName": "Dupont",
+    "classId": "cls-fixture-01",
+    "className": "2nde 1"
+  },
+  {
+    "id": "stu-fixture-0002",
+    "firstName": "Mila",
+    "lastName": "Robert",
+    "classId": "cls-fixture-01",
+    "className": "2nde 1"
+  },
+  {
+    "id": "stu-fixture-0003",
+    "firstName": "Camille",
+    "lastName": "Guérin",
+    "classId": "cls-fixture-01",
+    "className": "2nde 1"
+  },
+  {
+    "id": "stu-fixture-0004",
+    "firstName": "Éva",
+    "lastName": "Boyer",
+    "classId": "cls-fixture-01",
+    "className": "2nde 1"
+  },
+  {
+    "id": "stu-fixture-0005",
+    "firstName": "Lucas",
+    "lastName": "Girard",
+    "classId": "cls-fixture-01",
+    "className": "2nde 1"
+  },
+  {
+    "id": "stu-fixture-0006",
+    "firstName": "Yanis",
+    "lastName": "Thomas",
+    "classId": "cls-fixture-01",
+    "className": "2nde 1"
+  },
+  {
+    "id": "stu-fixture-0007",
+    "firstName": "Louis",
+    "lastName": "Dupont",
+    "classId": "cls-fixture-01",
+    "className": "2nde 1"
+  },
+  {
+    "id": "stu-fixture-0008",
+    "firstName": "Lina",
+    "lastName": "Legrand",
+    "classId": "cls-fixture-01",
+    "className": "2nde 1"
+  },
+  {
+    "id": "stu-fixture-0009",
+    "firstName": "Elena",
+    "lastName": "Robert",
+    "classId": "cls-fixture-01",
+    "className": "2nde 1"
+  },
+  {
+    "id": "stu-fixture-0010",
+    "firstName": "Louis",
+    "lastName": "Simon",
+    "classId": "cls-fixture-01",
+    "className": "2nde 1"
+  },
+  {
+    "id": "stu-fixture-0011",
+    "firstName": "Jade",
+    "lastName": "Perrin",
+    "classId": "cls-fixture-01",
+    "className": "2nde 1"
+  },
+  {
+    "id": "stu-fixture-0012",
+    "firstName": "Zoé",
+    "lastName": "Legrand",
+    "classId": "cls-fixture-01",
+    "className": "2nde 1"
+  },
+  {
+    "id": "stu-fixture-0013",
+    "firstName": "Léa",
+    "lastName": "Dupont",
+    "classId": "cls-fixture-01",
+    "className": "2nde 1"
+  },
+  {
+    "id": "stu-fixture-0014",
+    "firstName": "Théo",
+    "lastName": "Laurent",
+    "classId": "cls-fixture-01",
+    "className": "2nde 1"
+  },
+  {
+    "id": "stu-fixture-0015",
+    "firstName": "Sacha",
+    "lastName": "Lefèvre",
+    "classId": "cls-fixture-01",
+    "className": "2nde 1"
+  },
+  {
+    "id": "stu-fixture-0016",
+    "firstName": "Mohamed",
+    "lastName": "Lefebvre",
+    "classId": "cls-fixture-01",
+    "className": "2nde 1"
+  },
+  {
+    "id": "stu-fixture-0017",
+    "firstName": "Chloé",
+    "lastName": "Rousseau",
+    "classId": "cls-fixture-01",
+    "className": "2nde 1"
+  },
+  {
+    "id": "stu-fixture-0018",
+    "firstName": "Alice",
+    "lastName": "Garcia",
+    "classId": "cls-fixture-01",
+    "className": "2nde 1"
+  },
+  {
+    "id": "stu-fixture-0019",
+    "firstName": "Sacha",
+    "lastName": "Perrin",
+    "classId": "cls-fixture-01",
+    "className": "2nde 1"
+  },
+  {
+    "id": "stu-fixture-0020",
+    "firstName": "Lucas",
+    "lastName": "Girard",
+    "classId": "cls-fixture-01",
+    "className": "2nde 1"
+  },
+  {
+    "id": "stu-fixture-0021",
+    "firstName": "Rayan",
+    "lastName": "Dubois",
+    "classId": "cls-fixture-01",
+    "className": "2nde 1"
+  },
+  {
+    "id": "stu-fixture-0022",
+    "firstName": "Clément",
+    "lastName": "Garnier",
+    "classId": "cls-fixture-01",
+    "className": "2nde 1"
+  },
+  {
+    "id": "stu-fixture-0023",
+    "firstName": "Manon",
+    "lastName": "Michel",
+    "classId": "cls-fixture-01",
+    "className": "2nde 1"
+  },
+  {
+    "id": "stu-fixture-0024",
+    "firstName": "Jade",
+    "lastName": "Fournier",
+    "classId": "cls-fixture-01",
+    "className": "2nde 1"
+  },
+  {
+    "id": "stu-fixture-0025",
+    "firstName": "Lucas",
+    "lastName": "Dupont",
+    "classId": "cls-fixture-01",
+    "className": "2nde 1"
+  },
+  {
+    "id": "stu-fixture-0026",
+    "firstName": "Inès",
+    "lastName": "Robert",
+    "classId": "cls-fixture-01",
+    "className": "2nde 1"
+  },
+  {
+    "id": "stu-fixture-0027",
+    "firstName": "Elena",
+    "lastName": "Michel",
+    "classId": "cls-fixture-01",
+    "className": "2nde 1"
+  },
+  {
+    "id": "stu-fixture-0028",
+    "firstName": "Sacha",
+    "lastName": "Simon",
+    "classId": "cls-fixture-01",
+    "className": "2nde 1"
+  },
+  {
+    "id": "stu-fixture-0029",
+    "firstName": "Louise",
+    "lastName": "Richard",
+    "classId": "cls-fixture-01",
+    "className": "2nde 1"
+  },
+  {
+    "id": "stu-fixture-0030",
+    "firstName": "Jade",
+    "lastName": "Roux",
+    "classId": "cls-fixture-01",
+    "className": "2nde 1"
+  },
+  {
+    "id": "stu-fixture-0031",
+    "firstName": "Camille",
+    "lastName": "Laurent",
+    "classId": "cls-fixture-01",
+    "className": "2nde 1"
+  },
+  {
+    "id": "stu-fixture-0032",
+    "firstName": "Mila",
+    "lastName": "Dupont",
+    "classId": "cls-fixture-02",
+    "className": "2nde 2"
+  },
+  {
+    "id": "stu-fixture-0033",
+    "firstName": "Camille",
+    "lastName": "Guérin",
+    "classId": "cls-fixture-02",
+    "className": "2nde 2"
+  },
+  {
+    "id": "stu-fixture-0034",
+    "firstName": "Rayan",
+    "lastName": "Muller",
+    "classId": "cls-fixture-02",
+    "className": "2nde 2"
+  },
+  {
+    "id": "stu-fixture-0035",
+    "firstName": "Gabriel",
+    "lastName": "Boyer",
+    "classId": "cls-fixture-02",
+    "className": "2nde 2"
+  },
+  {
+    "id": "stu-fixture-0036",
+    "firstName": "Yanis",
+    "lastName": "Gauthier",
+    "classId": "cls-fixture-02",
+    "className": "2nde 2"
+  },
+  {
+    "id": "stu-fixture-0037",
+    "firstName": "Manon",
+    "lastName": "Fournier",
+    "classId": "cls-fixture-02",
+    "className": "2nde 2"
+  },
+  {
+    "id": "stu-fixture-0038",
+    "firstName": "Emma",
+    "lastName": "Guérin",
+    "classId": "cls-fixture-02",
+    "className": "2nde 2"
+  },
+  {
+    "id": "stu-fixture-0039",
+    "firstName": "Yanis",
+    "lastName": "Mercier",
+    "classId": "cls-fixture-02",
+    "className": "2nde 2"
+  },
+  {
+    "id": "stu-fixture-0040",
+    "firstName": "Léa",
+    "lastName": "Chevalier",
+    "classId": "cls-fixture-02",
+    "className": "2nde 2"
+  },
+  {
+    "id": "stu-fixture-0041",
+    "firstName": "Mathis",
+    "lastName": "Roux",
+    "classId": "cls-fixture-02",
+    "className": "2nde 2"
+  },
+  {
+    "id": "stu-fixture-0042",
+    "firstName": "Émile",
+    "lastName": "Roux",
+    "classId": "cls-fixture-02",
+    "className": "2nde 2"
+  },
+  {
+    "id": "stu-fixture-0043",
+    "firstName": "Enzo",
+    "lastName": "Fournier",
+    "classId": "cls-fixture-02",
+    "className": "2nde 2"
+  },
+  {
+    "id": "stu-fixture-0044",
+    "firstName": "Alice",
+    "lastName": "Richard",
+    "classId": "cls-fixture-02",
+    "className": "2nde 2"
+  },
+  {
+    "id": "stu-fixture-0045",
+    "firstName": "Émile",
+    "lastName": "Perrin",
+    "classId": "cls-fixture-02",
+    "className": "2nde 2"
+  },
+  {
+    "id": "stu-fixture-0046",
+    "firstName": "Alice",
+    "lastName": "Leroy",
+    "classId": "cls-fixture-02",
+    "className": "2nde 2"
+  },
+  {
+    "id": "stu-fixture-0047",
+    "firstName": "Nathan",
+    "lastName": "Boyer",
+    "classId": "cls-fixture-02",
+    "className": "2nde 2"
+  },
+  {
+    "id": "stu-fixture-0048",
+    "firstName": "Manon",
+    "lastName": "Rousseau",
+    "classId": "cls-fixture-02",
+    "className": "2nde 2"
+  },
+  {
+    "id": "stu-fixture-0049",
+    "firstName": "Axel",
+    "lastName": "Faure",
+    "classId": "cls-fixture-02",
+    "className": "2nde 2"
+  },
+  {
+    "id": "stu-fixture-0050",
+    "firstName": "Noah",
+    "lastName": "Dupont",
+    "classId": "cls-fixture-02",
+    "className": "2nde 2"
+  },
+  {
+    "id": "stu-fixture-0051",
+    "firstName": "Enzo",
+    "lastName": "Blanc",
+    "classId": "cls-fixture-02",
+    "className": "2nde 2"
+  },
+  {
+    "id": "stu-fixture-0052",
+    "firstName": "Léna",
+    "lastName": "Michel",
+    "classId": "cls-fixture-02",
+    "className": "2nde 2"
+  },
+  {
+    "id": "stu-fixture-0053",
+    "firstName": "Mohamed",
+    "lastName": "Rousseau",
+    "classId": "cls-fixture-02",
+    "className": "2nde 2"
+  },
+  {
+    "id": "stu-fixture-0054",
+    "firstName": "Gabriel",
+    "lastName": "Leroy",
+    "classId": "cls-fixture-02",
+    "className": "2nde 2"
+  },
+  {
+    "id": "stu-fixture-0055",
+    "firstName": "Noah",
+    "lastName": "Robert",
+    "classId": "cls-fixture-02",
+    "className": "2nde 2"
+  },
+  {
+    "id": "stu-fixture-0056",
+    "firstName": "Lucas",
+    "lastName": "Rousseau",
+    "classId": "cls-fixture-02",
+    "className": "2nde 2"
+  },
+  {
+    "id": "stu-fixture-0057",
+    "firstName": "Manon",
+    "lastName": "Lambert",
+    "classId": "cls-fixture-02",
+    "className": "2nde 2"
+  },
+  {
+    "id": "stu-fixture-0058",
+    "firstName": "Jeanne",
+    "lastName": "André",
+    "classId": "cls-fixture-02",
+    "className": "2nde 2"
+  },
+  {
+    "id": "stu-fixture-0059",
+    "firstName": "Timéo",
+    "lastName": "Petit",
+    "classId": "cls-fixture-02",
+    "className": "2nde 2"
+  },
+  {
+    "id": "stu-fixture-0060",
+    "firstName": "Margaux",
+    "lastName": "Lambert",
+    "classId": "cls-fixture-02",
+    "className": "2nde 2"
+  },
+  {
+    "id": "stu-fixture-0061",
+    "firstName": "Inès",
+    "lastName": "Rousseau",
+    "classId": "cls-fixture-02",
+    "className": "2nde 2"
+  },
+  {
+    "id": "stu-fixture-0062",
+    "firstName": "Manon",
+    "lastName": "Michel",
+    "classId": "cls-fixture-02",
+    "className": "2nde 2"
+  },
+  {
+    "id": "stu-fixture-0063",
+    "firstName": "Jade",
+    "lastName": "Garcia",
+    "classId": "cls-fixture-03",
+    "className": "2nde 3"
+  },
+  {
+    "id": "stu-fixture-0064",
+    "firstName": "Noah",
+    "lastName": "Roux",
+    "classId": "cls-fixture-03",
+    "className": "2nde 3"
+  },
+  {
+    "id": "stu-fixture-0065",
+    "firstName": "Julia",
+    "lastName": "Petit",
+    "classId": "cls-fixture-03",
+    "className": "2nde 3"
+  },
+  {
+    "id": "stu-fixture-0066",
+    "firstName": "Noah",
+    "lastName": "Boyer",
+    "classId": "cls-fixture-03",
+    "className": "2nde 3"
+  },
+  {
+    "id": "stu-fixture-0067",
+    "firstName": "Rose",
+    "lastName": "François",
+    "classId": "cls-fixture-03",
+    "className": "2nde 3"
+  },
+  {
+    "id": "stu-fixture-0068",
+    "firstName": "Mila",
+    "lastName": "Simon",
+    "classId": "cls-fixture-03",
+    "className": "2nde 3"
+  },
+  {
+    "id": "stu-fixture-0069",
+    "firstName": "Ambre",
+    "lastName": "Petit",
+    "classId": "cls-fixture-03",
+    "className": "2nde 3"
+  },
+  {
+    "id": "stu-fixture-0070",
+    "firstName": "Ambre",
+    "lastName": "Fournier",
+    "classId": "cls-fixture-03",
+    "className": "2nde 3"
+  },
+  {
+    "id": "stu-fixture-0071",
+    "firstName": "Zoé",
+    "lastName": "François",
+    "classId": "cls-fixture-03",
+    "className": "2nde 3"
+  },
+  {
+    "id": "stu-fixture-0072",
+    "firstName": "Timéo",
+    "lastName": "André",
+    "classId": "cls-fixture-03",
+    "className": "2nde 3"
+  },
+  {
+    "id": "stu-fixture-0073",
+    "firstName": "Nathan",
+    "lastName": "David",
+    "classId": "cls-fixture-03",
+    "className": "2nde 3"
+  },
+  {
+    "id": "stu-fixture-0074",
+    "firstName": "Louis",
+    "lastName": "Vincent",
+    "classId": "cls-fixture-03",
+    "className": "2nde 3"
+  },
+  {
+    "id": "stu-fixture-0075",
+    "firstName": "Enzo",
+    "lastName": "Lambert",
+    "classId": "cls-fixture-03",
+    "className": "2nde 3"
+  },
+  {
+    "id": "stu-fixture-0076",
+    "firstName": "Nina",
+    "lastName": "Lefebvre",
+    "classId": "cls-fixture-03",
+    "className": "2nde 3"
+  },
+  {
+    "id": "stu-fixture-0077",
+    "firstName": "Enzo",
+    "lastName": "Lefebvre",
+    "classId": "cls-fixture-03",
+    "className": "2nde 3"
+  },
+  {
+    "id": "stu-fixture-0078",
+    "firstName": "Jade",
+    "lastName": "Garcia",
+    "classId": "cls-fixture-03",
+    "className": "2nde 3"
+  },
+  {
+    "id": "stu-fixture-0079",
+    "firstName": "Léa",
+    "lastName": "Legrand",
+    "classId": "cls-fixture-03",
+    "className": "2nde 3"
+  },
+  {
+    "id": "stu-fixture-0080",
+    "firstName": "Emma",
+    "lastName": "Roux",
+    "classId": "cls-fixture-03",
+    "className": "2nde 3"
+  },
+  {
+    "id": "stu-fixture-0081",
+    "firstName": "Margaux",
+    "lastName": "Dupont",
+    "classId": "cls-fixture-03",
+    "className": "2nde 3"
+  },
+  {
+    "id": "stu-fixture-0082",
+    "firstName": "Yanis",
+    "lastName": "Dupont",
+    "classId": "cls-fixture-03",
+    "className": "2nde 3"
+  },
+  {
+    "id": "stu-fixture-0083",
+    "firstName": "Nathan",
+    "lastName": "Girard",
+    "classId": "cls-fixture-03",
+    "className": "2nde 3"
+  },
+  {
+    "id": "stu-fixture-0084",
+    "firstName": "Louis",
+    "lastName": "Chevalier",
+    "classId": "cls-fixture-03",
+    "className": "2nde 3"
+  },
+  {
+    "id": "stu-fixture-0085",
+    "firstName": "Élise",
+    "lastName": "Fontaine",
+    "classId": "cls-fixture-03",
+    "className": "2nde 3"
+  },
+  {
+    "id": "stu-fixture-0086",
+    "firstName": "Noah",
+    "lastName": "Blanc",
+    "classId": "cls-fixture-03",
+    "className": "2nde 3"
+  },
+  {
+    "id": "stu-fixture-0087",
+    "firstName": "Anna",
+    "lastName": "Chevalier",
+    "classId": "cls-fixture-03",
+    "className": "2nde 3"
+  },
+  {
+    "id": "stu-fixture-0088",
+    "firstName": "Théo",
+    "lastName": "Michel",
+    "classId": "cls-fixture-03",
+    "className": "2nde 3"
+  },
+  {
+    "id": "stu-fixture-0089",
+    "firstName": "Zoé",
+    "lastName": "Richard",
+    "classId": "cls-fixture-03",
+    "className": "2nde 3"
+  },
+  {
+    "id": "stu-fixture-0090",
+    "firstName": "Manon",
+    "lastName": "Simon",
+    "classId": "cls-fixture-03",
+    "className": "2nde 3"
+  },
+  {
+    "id": "stu-fixture-0091",
+    "firstName": "Maël",
+    "lastName": "Bonnet",
+    "classId": "cls-fixture-03",
+    "className": "2nde 3"
+  },
+  {
+    "id": "stu-fixture-0092",
+    "firstName": "Clément",
+    "lastName": "David",
+    "classId": "cls-fixture-03",
+    "className": "2nde 3"
+  },
+  {
+    "id": "stu-fixture-0093",
+    "firstName": "Ethan",
+    "lastName": "Martin",
+    "classId": "cls-fixture-03",
+    "className": "2nde 3"
+  },
+  {
+    "id": "stu-fixture-0094",
+    "firstName": "Lina",
+    "lastName": "Garcia",
+    "classId": "cls-fixture-04",
+    "className": "1re G1"
+  },
+  {
+    "id": "stu-fixture-0095",
+    "firstName": "Ambre",
+    "lastName": "Lefèvre",
+    "classId": "cls-fixture-04",
+    "className": "1re G1"
+  },
+  {
+    "id": "stu-fixture-0096",
+    "firstName": "Lina",
+    "lastName": "Chevalier",
+    "classId": "cls-fixture-04",
+    "className": "1re G1"
+  },
+  {
+    "id": "stu-fixture-0097",
+    "firstName": "Yanis",
+    "lastName": "Vincent",
+    "classId": "cls-fixture-04",
+    "className": "1re G1"
+  },
+  {
+    "id": "stu-fixture-0098",
+    "firstName": "Emma",
+    "lastName": "Petit",
+    "classId": "cls-fixture-04",
+    "className": "1re G1"
+  },
+  {
+    "id": "stu-fixture-0099",
+    "firstName": "Ethan",
+    "lastName": "Gauthier",
+    "classId": "cls-fixture-04",
+    "className": "1re G1"
+  },
+  {
+    "id": "stu-fixture-0100",
+    "firstName": "Jade",
+    "lastName": "Girard",
+    "classId": "cls-fixture-04",
+    "className": "1re G1"
+  },
+  {
+    "id": "stu-fixture-0101",
+    "firstName": "Lina",
+    "lastName": "Mercier",
+    "classId": "cls-fixture-04",
+    "className": "1re G1"
+  },
+  {
+    "id": "stu-fixture-0102",
+    "firstName": "Rayan",
+    "lastName": "Bernard",
+    "classId": "cls-fixture-04",
+    "className": "1re G1"
+  },
+  {
+    "id": "stu-fixture-0103",
+    "firstName": "Léa",
+    "lastName": "Faure",
+    "classId": "cls-fixture-04",
+    "className": "1re G1"
+  },
+  {
+    "id": "stu-fixture-0104",
+    "firstName": "Théo",
+    "lastName": "Morel",
+    "classId": "cls-fixture-04",
+    "className": "1re G1"
+  },
+  {
+    "id": "stu-fixture-0105",
+    "firstName": "Nina",
+    "lastName": "Petit",
+    "classId": "cls-fixture-04",
+    "className": "1re G1"
+  },
+  {
+    "id": "stu-fixture-0106",
+    "firstName": "Jeanne",
+    "lastName": "Leroy",
+    "classId": "cls-fixture-04",
+    "className": "1re G1"
+  },
+  {
+    "id": "stu-fixture-0107",
+    "firstName": "Rose",
+    "lastName": "Bernard",
+    "classId": "cls-fixture-04",
+    "className": "1re G1"
+  },
+  {
+    "id": "stu-fixture-0108",
+    "firstName": "Mohamed",
+    "lastName": "François",
+    "classId": "cls-fixture-04",
+    "className": "1re G1"
+  },
+  {
+    "id": "stu-fixture-0109",
+    "firstName": "Nathan",
+    "lastName": "Garnier",
+    "classId": "cls-fixture-04",
+    "className": "1re G1"
+  },
+  {
+    "id": "stu-fixture-0110",
+    "firstName": "Zoé",
+    "lastName": "Lefèvre",
+    "classId": "cls-fixture-04",
+    "className": "1re G1"
+  },
+  {
+    "id": "stu-fixture-0111",
+    "firstName": "Éva",
+    "lastName": "Chevalier",
+    "classId": "cls-fixture-04",
+    "className": "1re G1"
+  },
+  {
+    "id": "stu-fixture-0112",
+    "firstName": "Gabriel",
+    "lastName": "Dupont",
+    "classId": "cls-fixture-04",
+    "className": "1re G1"
+  },
+  {
+    "id": "stu-fixture-0113",
+    "firstName": "Émile",
+    "lastName": "Rousseau",
+    "classId": "cls-fixture-04",
+    "className": "1re G1"
+  },
+  {
+    "id": "stu-fixture-0114",
+    "firstName": "Manon",
+    "lastName": "Bernard",
+    "classId": "cls-fixture-04",
+    "className": "1re G1"
+  },
+  {
+    "id": "stu-fixture-0115",
+    "firstName": "Théo",
+    "lastName": "Fournier",
+    "classId": "cls-fixture-04",
+    "className": "1re G1"
+  },
+  {
+    "id": "stu-fixture-0116",
+    "firstName": "Arthur",
+    "lastName": "Fournier",
+    "classId": "cls-fixture-04",
+    "className": "1re G1"
+  },
+  {
+    "id": "stu-fixture-0117",
+    "firstName": "Léa",
+    "lastName": "Blanc",
+    "classId": "cls-fixture-04",
+    "className": "1re G1"
+  },
+  {
+    "id": "stu-fixture-0118",
+    "firstName": "Hugo",
+    "lastName": "Legrand",
+    "classId": "cls-fixture-04",
+    "className": "1re G1"
+  },
+  {
+    "id": "stu-fixture-0119",
+    "firstName": "Ambre",
+    "lastName": "Garcia",
+    "classId": "cls-fixture-04",
+    "className": "1re G1"
+  },
+  {
+    "id": "stu-fixture-0120",
+    "firstName": "Jules",
+    "lastName": "Gauthier",
+    "classId": "cls-fixture-04",
+    "className": "1re G1"
+  },
+  {
+    "id": "stu-fixture-0121",
+    "firstName": "Léna",
+    "lastName": "Michel",
+    "classId": "cls-fixture-04",
+    "className": "1re G1"
+  },
+  {
+    "id": "stu-fixture-0122",
+    "firstName": "Yanis",
+    "lastName": "François",
+    "classId": "cls-fixture-04",
+    "className": "1re G1"
+  },
+  {
+    "id": "stu-fixture-0123",
+    "firstName": "Arthur",
+    "lastName": "Guérin",
+    "classId": "cls-fixture-04",
+    "className": "1re G1"
+  },
+  {
+    "id": "stu-fixture-0124",
+    "firstName": "Élise",
+    "lastName": "Michel",
+    "classId": "cls-fixture-04",
+    "className": "1re G1"
+  },
+  {
+    "id": "stu-fixture-0125",
+    "firstName": "Robin",
+    "lastName": "Gauthier",
+    "classId": "cls-fixture-05",
+    "className": "1re G2"
+  },
+  {
+    "id": "stu-fixture-0126",
+    "firstName": "Clément",
+    "lastName": "François",
+    "classId": "cls-fixture-05",
+    "className": "1re G2"
+  },
+  {
+    "id": "stu-fixture-0127",
+    "firstName": "Enzo",
+    "lastName": "Garnier",
+    "classId": "cls-fixture-05",
+    "className": "1re G2"
+  },
+  {
+    "id": "stu-fixture-0128",
+    "firstName": "Hugo",
+    "lastName": "Morel",
+    "classId": "cls-fixture-05",
+    "className": "1re G2"
+  },
+  {
+    "id": "stu-fixture-0129",
+    "firstName": "Louis",
+    "lastName": "Garnier",
+    "classId": "cls-fixture-05",
+    "className": "1re G2"
+  },
+  {
+    "id": "stu-fixture-0130",
+    "firstName": "Nathan",
+    "lastName": "Fontaine",
+    "classId": "cls-fixture-05",
+    "className": "1re G2"
+  },
+  {
+    "id": "stu-fixture-0131",
+    "firstName": "Sacha",
+    "lastName": "Bertrand",
+    "classId": "cls-fixture-05",
+    "className": "1re G2"
+  },
+  {
+    "id": "stu-fixture-0132",
+    "firstName": "Éva",
+    "lastName": "Guérin",
+    "classId": "cls-fixture-05",
+    "className": "1re G2"
+  },
+  {
+    "id": "stu-fixture-0133",
+    "firstName": "Gabriel",
+    "lastName": "Muller",
+    "classId": "cls-fixture-05",
+    "className": "1re G2"
+  },
+  {
+    "id": "stu-fixture-0134",
+    "firstName": "Sarah",
+    "lastName": "Leroy",
+    "classId": "cls-fixture-05",
+    "className": "1re G2"
+  },
+  {
+    "id": "stu-fixture-0135",
+    "firstName": "Jeanne",
+    "lastName": "Rousseau",
+    "classId": "cls-fixture-05",
+    "className": "1re G2"
+  },
+  {
+    "id": "stu-fixture-0136",
+    "firstName": "Élise",
+    "lastName": "Robert",
+    "classId": "cls-fixture-05",
+    "className": "1re G2"
+  },
+  {
+    "id": "stu-fixture-0137",
+    "firstName": "Ethan",
+    "lastName": "Bonnet",
+    "classId": "cls-fixture-05",
+    "className": "1re G2"
+  },
+  {
+    "id": "stu-fixture-0138",
+    "firstName": "Louise",
+    "lastName": "Robert",
+    "classId": "cls-fixture-05",
+    "className": "1re G2"
+  },
+  {
+    "id": "stu-fixture-0139",
+    "firstName": "Jade",
+    "lastName": "Blanc",
+    "classId": "cls-fixture-05",
+    "className": "1re G2"
+  },
+  {
+    "id": "stu-fixture-0140",
+    "firstName": "Noah",
+    "lastName": "Garcia",
+    "classId": "cls-fixture-05",
+    "className": "1re G2"
+  },
+  {
+    "id": "stu-fixture-0141",
+    "firstName": "Lina",
+    "lastName": "Dubois",
+    "classId": "cls-fixture-05",
+    "className": "1re G2"
+  },
+  {
+    "id": "stu-fixture-0142",
+    "firstName": "Manon",
+    "lastName": "Michel",
+    "classId": "cls-fixture-05",
+    "className": "1re G2"
+  },
+  {
+    "id": "stu-fixture-0143",
+    "firstName": "Ethan",
+    "lastName": "Morel",
+    "classId": "cls-fixture-05",
+    "className": "1re G2"
+  },
+  {
+    "id": "stu-fixture-0144",
+    "firstName": "Nina",
+    "lastName": "Gauthier",
+    "classId": "cls-fixture-05",
+    "className": "1re G2"
+  },
+  {
+    "id": "stu-fixture-0145",
+    "firstName": "Clément",
+    "lastName": "Petit",
+    "classId": "cls-fixture-05",
+    "className": "1re G2"
+  },
+  {
+    "id": "stu-fixture-0146",
+    "firstName": "Nina",
+    "lastName": "Michel",
+    "classId": "cls-fixture-05",
+    "className": "1re G2"
+  },
+  {
+    "id": "stu-fixture-0147",
+    "firstName": "Nina",
+    "lastName": "Muller",
+    "classId": "cls-fixture-05",
+    "className": "1re G2"
+  },
+  {
+    "id": "stu-fixture-0148",
+    "firstName": "Rayan",
+    "lastName": "Vincent",
+    "classId": "cls-fixture-05",
+    "className": "1re G2"
+  },
+  {
+    "id": "stu-fixture-0149",
+    "firstName": "Margaux",
+    "lastName": "Garnier",
+    "classId": "cls-fixture-05",
+    "className": "1re G2"
+  },
+  {
+    "id": "stu-fixture-0150",
+    "firstName": "Anna",
+    "lastName": "Lambert",
+    "classId": "cls-fixture-05",
+    "className": "1re G2"
+  },
+  {
+    "id": "stu-fixture-0151",
+    "firstName": "Nina",
+    "lastName": "Guérin",
+    "classId": "cls-fixture-05",
+    "className": "1re G2"
+  },
+  {
+    "id": "stu-fixture-0152",
+    "firstName": "Margaux",
+    "lastName": "Martin",
+    "classId": "cls-fixture-05",
+    "className": "1re G2"
+  },
+  {
+    "id": "stu-fixture-0153",
+    "firstName": "Julia",
+    "lastName": "Girard",
+    "classId": "cls-fixture-05",
+    "className": "1re G2"
+  },
+  {
+    "id": "stu-fixture-0154",
+    "firstName": "Timéo",
+    "lastName": "Bertrand",
+    "classId": "cls-fixture-05",
+    "className": "1re G2"
+  },
+  {
+    "id": "stu-fixture-0155",
+    "firstName": "Jade",
+    "lastName": "Thomas",
+    "classId": "cls-fixture-05",
+    "className": "1re G2"
+  },
+  {
+    "id": "stu-fixture-0156",
+    "firstName": "Lucas",
+    "lastName": "Roux",
+    "classId": "cls-fixture-06",
+    "className": "1re STMG"
+  },
+  {
+    "id": "stu-fixture-0157",
+    "firstName": "Lina",
+    "lastName": "Bertrand",
+    "classId": "cls-fixture-06",
+    "className": "1re STMG"
+  },
+  {
+    "id": "stu-fixture-0158",
+    "firstName": "Manon",
+    "lastName": "Thomas",
+    "classId": "cls-fixture-06",
+    "className": "1re STMG"
+  },
+  {
+    "id": "stu-fixture-0159",
+    "firstName": "Adam",
+    "lastName": "Dupont",
+    "classId": "cls-fixture-06",
+    "className": "1re STMG"
+  },
+  {
+    "id": "stu-fixture-0160",
+    "firstName": "Chloé",
+    "lastName": "Legrand",
+    "classId": "cls-fixture-06",
+    "className": "1re STMG"
+  },
+  {
+    "id": "stu-fixture-0161",
+    "firstName": "Lina",
+    "lastName": "Blanc",
+    "classId": "cls-fixture-06",
+    "className": "1re STMG"
+  },
+  {
+    "id": "stu-fixture-0162",
+    "firstName": "Noah",
+    "lastName": "Garcia",
+    "classId": "cls-fixture-06",
+    "className": "1re STMG"
+  },
+  {
+    "id": "stu-fixture-0163",
+    "firstName": "Enzo",
+    "lastName": "Roux",
+    "classId": "cls-fixture-06",
+    "className": "1re STMG"
+  },
+  {
+    "id": "stu-fixture-0164",
+    "firstName": "Emma",
+    "lastName": "Laurent",
+    "classId": "cls-fixture-06",
+    "className": "1re STMG"
+  },
+  {
+    "id": "stu-fixture-0165",
+    "firstName": "Sarah",
+    "lastName": "Bertrand",
+    "classId": "cls-fixture-06",
+    "className": "1re STMG"
+  },
+  {
+    "id": "stu-fixture-0166",
+    "firstName": "Léa",
+    "lastName": "Mercier",
+    "classId": "cls-fixture-06",
+    "className": "1re STMG"
+  },
+  {
+    "id": "stu-fixture-0167",
+    "firstName": "Léna",
+    "lastName": "Morel",
+    "classId": "cls-fixture-06",
+    "className": "1re STMG"
+  },
+  {
+    "id": "stu-fixture-0168",
+    "firstName": "Mohamed",
+    "lastName": "Lefèvre",
+    "classId": "cls-fixture-06",
+    "className": "1re STMG"
+  },
+  {
+    "id": "stu-fixture-0169",
+    "firstName": "Ambre",
+    "lastName": "Thomas",
+    "classId": "cls-fixture-06",
+    "className": "1re STMG"
+  },
+  {
+    "id": "stu-fixture-0170",
+    "firstName": "Mohamed",
+    "lastName": "Martin",
+    "classId": "cls-fixture-06",
+    "className": "1re STMG"
+  },
+  {
+    "id": "stu-fixture-0171",
+    "firstName": "Clément",
+    "lastName": "Mercier",
+    "classId": "cls-fixture-06",
+    "className": "1re STMG"
+  },
+  {
+    "id": "stu-fixture-0172",
+    "firstName": "Robin",
+    "lastName": "Fontaine",
+    "classId": "cls-fixture-06",
+    "className": "1re STMG"
+  },
+  {
+    "id": "stu-fixture-0173",
+    "firstName": "Emma",
+    "lastName": "Garnier",
+    "classId": "cls-fixture-06",
+    "className": "1re STMG"
+  },
+  {
+    "id": "stu-fixture-0174",
+    "firstName": "Léo",
+    "lastName": "Guérin",
+    "classId": "cls-fixture-06",
+    "className": "1re STMG"
+  },
+  {
+    "id": "stu-fixture-0175",
+    "firstName": "Enzo",
+    "lastName": "François",
+    "classId": "cls-fixture-06",
+    "className": "1re STMG"
+  },
+  {
+    "id": "stu-fixture-0176",
+    "firstName": "Jade",
+    "lastName": "Leroy",
+    "classId": "cls-fixture-06",
+    "className": "1re STMG"
+  },
+  {
+    "id": "stu-fixture-0177",
+    "firstName": "Julia",
+    "lastName": "Mercier",
+    "classId": "cls-fixture-06",
+    "className": "1re STMG"
+  },
+  {
+    "id": "stu-fixture-0178",
+    "firstName": "Manon",
+    "lastName": "Moreau",
+    "classId": "cls-fixture-06",
+    "className": "1re STMG"
+  },
+  {
+    "id": "stu-fixture-0179",
+    "firstName": "Yanis",
+    "lastName": "Bonnet",
+    "classId": "cls-fixture-06",
+    "className": "1re STMG"
+  },
+  {
+    "id": "stu-fixture-0180",
+    "firstName": "Julia",
+    "lastName": "Robert",
+    "classId": "cls-fixture-06",
+    "className": "1re STMG"
+  },
+  {
+    "id": "stu-fixture-0181",
+    "firstName": "Zoé",
+    "lastName": "Bonnet",
+    "classId": "cls-fixture-06",
+    "className": "1re STMG"
+  },
+  {
+    "id": "stu-fixture-0182",
+    "firstName": "Mila",
+    "lastName": "Legrand",
+    "classId": "cls-fixture-06",
+    "className": "1re STMG"
+  },
+  {
+    "id": "stu-fixture-0183",
+    "firstName": "Chloé",
+    "lastName": "Martin",
+    "classId": "cls-fixture-06",
+    "className": "1re STMG"
+  },
+  {
+    "id": "stu-fixture-0184",
+    "firstName": "Louise",
+    "lastName": "Petit",
+    "classId": "cls-fixture-06",
+    "className": "1re STMG"
+  },
+  {
+    "id": "stu-fixture-0185",
+    "firstName": "Jules",
+    "lastName": "Morel",
+    "classId": "cls-fixture-06",
+    "className": "1re STMG"
+  },
+  {
+    "id": "stu-fixture-0186",
+    "firstName": "Gabriel",
+    "lastName": "Dupont",
+    "classId": "cls-fixture-06",
+    "className": "1re STMG"
+  },
+  {
+    "id": "stu-fixture-0187",
+    "firstName": "Louise",
+    "lastName": "Durand",
+    "classId": "cls-fixture-07",
+    "className": "Tle G1"
+  },
+  {
+    "id": "stu-fixture-0188",
+    "firstName": "Maël",
+    "lastName": "Bertrand",
+    "classId": "cls-fixture-07",
+    "className": "Tle G1"
+  },
+  {
+    "id": "stu-fixture-0189",
+    "firstName": "Inès",
+    "lastName": "Vincent",
+    "classId": "cls-fixture-07",
+    "className": "Tle G1"
+  },
+  {
+    "id": "stu-fixture-0190",
+    "firstName": "Nina",
+    "lastName": "Fontaine",
+    "classId": "cls-fixture-07",
+    "className": "Tle G1"
+  },
+  {
+    "id": "stu-fixture-0191",
+    "firstName": "Elena",
+    "lastName": "Richard",
+    "classId": "cls-fixture-07",
+    "className": "Tle G1"
+  },
+  {
+    "id": "stu-fixture-0192",
+    "firstName": "Manon",
+    "lastName": "Morel",
+    "classId": "cls-fixture-07",
+    "className": "Tle G1"
+  },
+  {
+    "id": "stu-fixture-0193",
+    "firstName": "Élise",
+    "lastName": "Roux",
+    "classId": "cls-fixture-07",
+    "className": "Tle G1"
+  },
+  {
+    "id": "stu-fixture-0194",
+    "firstName": "Elena",
+    "lastName": "Durand",
+    "classId": "cls-fixture-07",
+    "className": "Tle G1"
+  },
+  {
+    "id": "stu-fixture-0195",
+    "firstName": "Zoé",
+    "lastName": "Michel",
+    "classId": "cls-fixture-07",
+    "className": "Tle G1"
+  },
+  {
+    "id": "stu-fixture-0196",
+    "firstName": "Elena",
+    "lastName": "Bonnet",
+    "classId": "cls-fixture-07",
+    "className": "Tle G1"
+  },
+  {
+    "id": "stu-fixture-0197",
+    "firstName": "Anna",
+    "lastName": "Dubois",
+    "classId": "cls-fixture-07",
+    "className": "Tle G1"
+  },
+  {
+    "id": "stu-fixture-0198",
+    "firstName": "Hugo",
+    "lastName": "Lambert",
+    "classId": "cls-fixture-07",
+    "className": "Tle G1"
+  },
+  {
+    "id": "stu-fixture-0199",
+    "firstName": "Noah",
+    "lastName": "Laurent",
+    "classId": "cls-fixture-07",
+    "className": "Tle G1"
+  },
+  {
+    "id": "stu-fixture-0200",
+    "firstName": "Axel",
+    "lastName": "Vincent",
+    "classId": "cls-fixture-07",
+    "className": "Tle G1"
+  },
+  {
+    "id": "stu-fixture-0201",
+    "firstName": "Julia",
+    "lastName": "Roux",
+    "classId": "cls-fixture-07",
+    "className": "Tle G1"
+  },
+  {
+    "id": "stu-fixture-0202",
+    "firstName": "Zoé",
+    "lastName": "Muller",
+    "classId": "cls-fixture-07",
+    "className": "Tle G1"
+  },
+  {
+    "id": "stu-fixture-0203",
+    "firstName": "Mila",
+    "lastName": "Bernard",
+    "classId": "cls-fixture-07",
+    "className": "Tle G1"
+  },
+  {
+    "id": "stu-fixture-0204",
+    "firstName": "Éva",
+    "lastName": "Bonnet",
+    "classId": "cls-fixture-07",
+    "className": "Tle G1"
+  },
+  {
+    "id": "stu-fixture-0205",
+    "firstName": "Élise",
+    "lastName": "Gauthier",
+    "classId": "cls-fixture-07",
+    "className": "Tle G1"
+  },
+  {
+    "id": "stu-fixture-0206",
+    "firstName": "Tom",
+    "lastName": "Dubois",
+    "classId": "cls-fixture-07",
+    "className": "Tle G1"
+  },
+  {
+    "id": "stu-fixture-0207",
+    "firstName": "Mila",
+    "lastName": "Fournier",
+    "classId": "cls-fixture-07",
+    "className": "Tle G1"
+  },
+  {
+    "id": "stu-fixture-0208",
+    "firstName": "Nathan",
+    "lastName": "André",
+    "classId": "cls-fixture-07",
+    "className": "Tle G1"
+  },
+  {
+    "id": "stu-fixture-0209",
+    "firstName": "Chloé",
+    "lastName": "Garcia",
+    "classId": "cls-fixture-07",
+    "className": "Tle G1"
+  },
+  {
+    "id": "stu-fixture-0210",
+    "firstName": "Robin",
+    "lastName": "Moreau",
+    "classId": "cls-fixture-07",
+    "className": "Tle G1"
+  },
+  {
+    "id": "stu-fixture-0211",
+    "firstName": "Mathis",
+    "lastName": "Lefebvre",
+    "classId": "cls-fixture-07",
+    "className": "Tle G1"
+  },
+  {
+    "id": "stu-fixture-0212",
+    "firstName": "Théo",
+    "lastName": "Dupont",
+    "classId": "cls-fixture-07",
+    "className": "Tle G1"
+  },
+  {
+    "id": "stu-fixture-0213",
+    "firstName": "Nathan",
+    "lastName": "André",
+    "classId": "cls-fixture-07",
+    "className": "Tle G1"
+  },
+  {
+    "id": "stu-fixture-0214",
+    "firstName": "Mila",
+    "lastName": "Dupont",
+    "classId": "cls-fixture-07",
+    "className": "Tle G1"
+  },
+  {
+    "id": "stu-fixture-0215",
+    "firstName": "Émile",
+    "lastName": "Fournier",
+    "classId": "cls-fixture-07",
+    "className": "Tle G1"
+  },
+  {
+    "id": "stu-fixture-0216",
+    "firstName": "Julia",
+    "lastName": "Morel",
+    "classId": "cls-fixture-07",
+    "className": "Tle G1"
+  },
+  {
+    "id": "stu-fixture-0217",
+    "firstName": "Alice",
+    "lastName": "Dupont",
+    "classId": "cls-fixture-07",
+    "className": "Tle G1"
+  },
+  {
+    "id": "stu-fixture-0218",
+    "firstName": "Margaux",
+    "lastName": "Bonnet",
+    "classId": "cls-fixture-08",
+    "className": "Tle STI2D"
+  },
+  {
+    "id": "stu-fixture-0219",
+    "firstName": "Sacha",
+    "lastName": "Simon",
+    "classId": "cls-fixture-08",
+    "className": "Tle STI2D"
+  },
+  {
+    "id": "stu-fixture-0220",
+    "firstName": "Ethan",
+    "lastName": "Bertrand",
+    "classId": "cls-fixture-08",
+    "className": "Tle STI2D"
+  },
+  {
+    "id": "stu-fixture-0221",
+    "firstName": "Émile",
+    "lastName": "Lefèvre",
+    "classId": "cls-fixture-08",
+    "className": "Tle STI2D"
+  },
+  {
+    "id": "stu-fixture-0222",
+    "firstName": "Élise",
+    "lastName": "Chevalier",
+    "classId": "cls-fixture-08",
+    "className": "Tle STI2D"
+  },
+  {
+    "id": "stu-fixture-0223",
+    "firstName": "Rose",
+    "lastName": "Leroy",
+    "classId": "cls-fixture-08",
+    "className": "Tle STI2D"
+  },
+  {
+    "id": "stu-fixture-0224",
+    "firstName": "Lina",
+    "lastName": "Thomas",
+    "classId": "cls-fixture-08",
+    "className": "Tle STI2D"
+  },
+  {
+    "id": "stu-fixture-0225",
+    "firstName": "Elena",
+    "lastName": "Leroy",
+    "classId": "cls-fixture-08",
+    "className": "Tle STI2D"
+  },
+  {
+    "id": "stu-fixture-0226",
+    "firstName": "Léa",
+    "lastName": "Vincent",
+    "classId": "cls-fixture-08",
+    "className": "Tle STI2D"
+  },
+  {
+    "id": "stu-fixture-0227",
+    "firstName": "Jeanne",
+    "lastName": "Fournier",
+    "classId": "cls-fixture-08",
+    "className": "Tle STI2D"
+  },
+  {
+    "id": "stu-fixture-0228",
+    "firstName": "Emma",
+    "lastName": "Girard",
+    "classId": "cls-fixture-08",
+    "className": "Tle STI2D"
+  },
+  {
+    "id": "stu-fixture-0229",
+    "firstName": "Jules",
+    "lastName": "Rousseau",
+    "classId": "cls-fixture-08",
+    "className": "Tle STI2D"
+  },
+  {
+    "id": "stu-fixture-0230",
+    "firstName": "Zoé",
+    "lastName": "Boyer",
+    "classId": "cls-fixture-08",
+    "className": "Tle STI2D"
+  },
+  {
+    "id": "stu-fixture-0231",
+    "firstName": "Léa",
+    "lastName": "Laurent",
+    "classId": "cls-fixture-08",
+    "className": "Tle STI2D"
+  },
+  {
+    "id": "stu-fixture-0232",
+    "firstName": "Emma",
+    "lastName": "Lefèvre",
+    "classId": "cls-fixture-08",
+    "className": "Tle STI2D"
+  },
+  {
+    "id": "stu-fixture-0233",
+    "firstName": "Axel",
+    "lastName": "Bonnet",
+    "classId": "cls-fixture-08",
+    "className": "Tle STI2D"
+  },
+  {
+    "id": "stu-fixture-0234",
+    "firstName": "Manon",
+    "lastName": "Garcia",
+    "classId": "cls-fixture-08",
+    "className": "Tle STI2D"
+  },
+  {
+    "id": "stu-fixture-0235",
+    "firstName": "Alice",
+    "lastName": "Garnier",
+    "classId": "cls-fixture-08",
+    "className": "Tle STI2D"
+  },
+  {
+    "id": "stu-fixture-0236",
+    "firstName": "Margaux",
+    "lastName": "Michel",
+    "classId": "cls-fixture-08",
+    "className": "Tle STI2D"
+  },
+  {
+    "id": "stu-fixture-0237",
+    "firstName": "Léna",
+    "lastName": "Mercier",
+    "classId": "cls-fixture-08",
+    "className": "Tle STI2D"
+  },
+  {
+    "id": "stu-fixture-0238",
+    "firstName": "Mila",
+    "lastName": "Durand",
+    "classId": "cls-fixture-08",
+    "className": "Tle STI2D"
+  },
+  {
+    "id": "stu-fixture-0239",
+    "firstName": "Louise",
+    "lastName": "Petit",
+    "classId": "cls-fixture-08",
+    "className": "Tle STI2D"
+  },
+  {
+    "id": "stu-fixture-0240",
+    "firstName": "Enzo",
+    "lastName": "Morel",
+    "classId": "cls-fixture-08",
+    "className": "Tle STI2D"
+  },
+  {
+    "id": "stu-fixture-0241",
+    "firstName": "Romane",
+    "lastName": "Lefebvre",
+    "classId": "cls-fixture-08",
+    "className": "Tle STI2D"
+  },
+  {
+    "id": "stu-fixture-0242",
+    "firstName": "Émile",
+    "lastName": "Bertrand",
+    "classId": "cls-fixture-08",
+    "className": "Tle STI2D"
+  },
+  {
+    "id": "stu-fixture-0243",
+    "firstName": "Margaux",
+    "lastName": "David",
+    "classId": "cls-fixture-08",
+    "className": "Tle STI2D"
+  },
+  {
+    "id": "stu-fixture-0244",
+    "firstName": "Élise",
+    "lastName": "Fournier",
+    "classId": "cls-fixture-08",
+    "className": "Tle STI2D"
+  },
+  {
+    "id": "stu-fixture-0245",
+    "firstName": "Manon",
+    "lastName": "Girard",
+    "classId": "cls-fixture-08",
+    "className": "Tle STI2D"
+  },
+  {
+    "id": "stu-fixture-0246",
+    "firstName": "Axel",
+    "lastName": "Fontaine",
+    "classId": "cls-fixture-08",
+    "className": "Tle STI2D"
+  },
+  {
+    "id": "stu-fixture-0247",
+    "firstName": "Emma",
+    "lastName": "Blanc",
+    "classId": "cls-fixture-08",
+    "className": "Tle STI2D"
+  }
+]

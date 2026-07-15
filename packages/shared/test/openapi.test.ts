@@ -40,13 +40,13 @@ describe("buildOpenApiDocument", () => {
     expect(servers[0]?.url).toBe("https://lycee.example/api/v1");
   });
 
-  it("covers every one of the 26 registered operations", () => {
+  it("covers every one of the 30 registered operations", () => {
     const paths = doc().paths as Record<string, Record<string, unknown>>;
     const operationCount = Object.values(paths).reduce(
       (total, methods) => total + Object.keys(methods).length,
       0,
     );
-    expect(operationCount).toBe(26);
+    expect(operationCount).toBe(30);
   });
 
   it("declares the bearer security scheme and applies it to protected routes", () => {
@@ -99,5 +99,34 @@ describe("buildOpenApiDocument", () => {
     const csv = paths["/reports/exclusions.csv"]?.get as Record<string, unknown>;
     const responses = csv.responses as Record<string, { content?: Record<string, unknown> }>;
     expect(responses["200"]?.content).toHaveProperty("text/csv");
+  });
+
+  it("declares the sync API key security scheme and applies it to /sync/* routes", () => {
+    const result = doc();
+    const securitySchemes = (result.components as Record<string, unknown>).securitySchemes as {
+      syncApiKeyAuth: { type: string; in: string; name: string };
+    };
+    expect(securitySchemes.syncApiKeyAuth).toEqual({
+      type: "apiKey",
+      in: "header",
+      name: "X-Sync-Api-Key",
+    });
+
+    const paths = result.paths as Record<string, Record<string, Record<string, unknown>>>;
+    expect(paths["/sync/classes"]?.put?.security).toEqual([{ syncApiKeyAuth: [] }]);
+    expect(paths["/sync/students"]?.put?.security).toEqual([{ syncApiKeyAuth: [] }]);
+    expect(paths["/sync/presence"]?.post?.security).toEqual([{ syncApiKeyAuth: [] }]);
+
+    const schemas = (result.components as Record<string, unknown>).schemas as Record<
+      string,
+      unknown
+    >;
+    expect(schemas.SyncClassesRequest).toBeDefined();
+    expect(schemas.StudentPresence).toBeDefined();
+  });
+
+  it("gates the presence-read endpoint behind bearer auth (not the sync API key)", () => {
+    const paths = doc().paths as Record<string, Record<string, Record<string, unknown>>>;
+    expect(paths["/classes/{id}/presence"]?.get?.security).toEqual([{ bearerAuth: [] }]);
   });
 });

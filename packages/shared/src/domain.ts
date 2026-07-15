@@ -107,3 +107,11 @@ export interface PushSubscriptionInfo {
   deviceName: string | null;
   createdAt: string;
 }
+
+/** A student's most recent presence observation, as reported by the synced SIS. */
+export interface StudentPresence {
+  studentId: string;
+  studentName: string;
+  present: boolean;
+  observedAt: string;
+}

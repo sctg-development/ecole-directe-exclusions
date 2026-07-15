@@ -55,8 +55,14 @@ import {
   statsByStudentQuerySchema,
   statsQuerySchema,
   statsSummarySchema,
+  studentPresenceSchema,
   studentSchema,
   studentStatSchema,
+  syncClassesRequestSchema,
+  syncPresenceRequestSchema,
+  syncPresenceResultSchema,
+  syncResultSchema,
+  syncStudentsRequestSchema,
   timelineBucketSchema,
   timelineQuerySchema,
   transitionRequestSchema,
@@ -96,7 +102,13 @@ const COMPONENT_SCHEMAS: Record<string, z.ZodType> = {
   SchoolClass: schoolClassSchema,
   StatsSummary: statsSummarySchema,
   Student: studentSchema,
+  StudentPresence: studentPresenceSchema,
   StudentStat: studentStatSchema,
+  SyncClassesRequest: syncClassesRequestSchema,
+  SyncPresenceRequest: syncPresenceRequestSchema,
+  SyncPresenceResult: syncPresenceResultSchema,
+  SyncResult: syncResultSchema,
+  SyncStudentsRequest: syncStudentsRequestSchema,
   TimelineBucket: timelineBucketSchema,
   TransitionRequest: transitionRequestSchema,
   UpdateUserRequest: updateUserRequestSchema,
@@ -117,11 +129,11 @@ type ResponseSpec =
   | { kind: "raw"; status: number; contentType: string; description: string };
 
 interface RouteDescriptor {
-  method: "get" | "post" | "patch" | "delete";
+  method: "get" | "post" | "put" | "patch" | "delete";
   path: string;
   tag: (typeof TAGS)[number];
   summary: string;
-  auth: "none" | "bearer";
+  auth: "none" | "bearer" | "syncApiKey";
   roles?: Role[];
   note?: string;
   pathParams?: PathParam[];
@@ -248,6 +260,58 @@ const ROUTES: RouteDescriptor[] = [
     auth: "bearer",
     pathParams: [{ name: "id", description: "Class id." }],
     response: { kind: "schema", status: 200, component: "Student", array: true, description: "OK" },
+  },
+  {
+    method: "get",
+    path: "/classes/{id}/presence",
+    tag: "SIS",
+    summary: "Latest known presence for every student in a class",
+    auth: "bearer",
+    roles: ["vie-scolaire", "admin"],
+    pathParams: [{ name: "id", description: "Class id." }],
+    note: "Students with no presence observation yet are omitted from the response.",
+    response: {
+      kind: "schema",
+      status: 200,
+      component: "StudentPresence",
+      array: true,
+      description: "OK",
+    },
+  },
+  {
+    method: "put",
+    path: "/sync/classes",
+    tag: "SIS",
+    summary: "Full-replace sync of the class roster from the SIS",
+    auth: "syncApiKey",
+    note: "Machine-to-machine: call before /sync/students. Classes absent from the payload are deleted.",
+    requestBody: "SyncClassesRequest",
+    response: { kind: "schema", status: 200, component: "SyncResult", description: "OK" },
+  },
+  {
+    method: "put",
+    path: "/sync/students",
+    tag: "SIS",
+    summary: "Full-replace sync of the student roster from the SIS",
+    auth: "syncApiKey",
+    note: "Machine-to-machine: call after /sync/classes. Students absent from the payload are deleted.",
+    requestBody: "SyncStudentsRequest",
+    response: { kind: "schema", status: 200, component: "SyncResult", description: "OK" },
+  },
+  {
+    method: "post",
+    path: "/sync/presence",
+    tag: "SIS",
+    summary: "Append student presence observations",
+    auth: "syncApiKey",
+    note: "Machine-to-machine, append-only. Pruned automatically after PRESENCE_RETENTION_DAYS.",
+    requestBody: "SyncPresenceRequest",
+    response: {
+      kind: "schema",
+      status: 201,
+      component: "SyncPresenceResult",
+      description: "Appended.",
+    },
   },
   {
     method: "post",
@@ -506,6 +570,7 @@ export function buildOpenApiDocument(opts: {
         },
       },
       ...(route.auth === "bearer" ? { security: [{ bearerAuth: [] }] } : {}),
+      ...(route.auth === "syncApiKey" ? { security: [{ syncApiKeyAuth: [] }] } : {}),
     };
 
     const pathItem = (paths[route.path] ??= {});
@@ -525,6 +590,7 @@ export function buildOpenApiDocument(opts: {
     components: {
       securitySchemes: {
         bearerAuth: { type: "http", scheme: "bearer", bearerFormat: "JWT" },
+        syncApiKeyAuth: { type: "apiKey", in: "header", name: "X-Sync-Api-Key" },
       },
       schemas,
     },

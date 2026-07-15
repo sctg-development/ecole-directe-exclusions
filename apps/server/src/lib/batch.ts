@@ -18,30 +18,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-/** SIS provider factory, selected by the `SIS_PROVIDER` environment variable. */
-
-import type { Env } from "../env.js";
-import type { SisProvider } from "./provider.js";
-import { MockSisProvider } from "./mock.js";
-import { AplimSisProvider } from "./aplim.js";
-import { SyncedSisProvider } from "./synced.js";
-
-export type { SisProvider } from "./provider.js";
-export { MockSisProvider } from "./mock.js";
-export { AplimSisProvider } from "./aplim.js";
-export { SyncedSisProvider } from "./synced.js";
-
-export function createSisProvider(env: Env): SisProvider {
-  switch (env.SIS_PROVIDER) {
-    case "mock":
-      return new MockSisProvider(env.SCHOOL_ID);
-    case "aplim":
-      return new AplimSisProvider();
-    case "synced":
-      return new SyncedSisProvider(env.DB);
-    default:
-      throw new Error(
-        `Unknown SIS_PROVIDER "${env.SIS_PROVIDER}" (expected "mock", "aplim" or "synced")`,
-      );
+/** Splits an array into fixed-size chunks, e.g. to bound the size of a `D1Database.batch()` call. */
+export function chunk<T>(items: readonly T[], size: number): T[][] {
+  const chunks: T[][] = [];
+  for (let i = 0; i < items.length; i += size) {
+    chunks.push(items.slice(i, i + size));
   }
+  return chunks;
 }

@@ -16,26 +16,42 @@ mutualized DPO through their diocesan network or management organization.
   The school's DPO picks and documents the basis in the registre entry (template below).
 - Purpose (_finalité_): ensure an excluded student is expected, tracked and searched for if
   missing; keep an audit trail for educational follow-up and accountability. Statistics are
-  derived from the same records, per class/student/period, for internal steering only.
+  derived from the same records, per class/student/period, for internal steering only. The
+  synced class/student roster and presence log (below) serve the same purpose: validating that
+  a reported student/class exists and cross-checking whether a `missing` student is actually
+  present elsewhere — not a general-purpose surveillance capability.
 
 ## Data minimization — full inventory
 
 Everything stored, per the [data model](./DATA-MODEL.md). There is deliberately **no other
 student data**: no birth date, no address, no photo, no grades, no family or health information.
 
-| Data                | D1 table             | Personal data fields                                                                                                                           | Data subjects              |
-| ------------------- | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
-| Exclusion incidents | `exclusions`         | Student SIS id + display name and class name **as captured at incident time**; teacher id + name; reason, optional comment, status, timestamps | Students (minors), staff   |
-| Audit trail         | `exclusion_events`   | Actor id + display name (or `system`), event type, optional comment, timestamp                                                                 | Staff, indirectly students |
-| Staff accounts      | `users`              | E-mail, display name, role, PBKDF2 password hash + salt                                                                                        | Staff                      |
-| Sessions            | `refresh_tokens`     | SHA-256-hashed refresh tokens linked to a staff account                                                                                        | Staff                      |
-| Login rate limiting | `login_attempts`     | Staff e-mail, timestamp, success flag — pruned after 24 h by the cron handler                                                                  | Staff                      |
-| Push targets        | `push_subscriptions` | Pseudonymous push endpoint or FCM token, web-push keys, optional device name                                                                   | Staff                      |
+| Data                | D1 table                  | Personal data fields                                                                                                                           | Data subjects              |
+| ------------------- | ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
+| Exclusion incidents | `exclusions`              | Student SIS id + display name and class name **as captured at incident time**; teacher id + name; reason, optional comment, status, timestamps | Students (minors), staff   |
+| Audit trail         | `exclusion_events`        | Actor id + display name (or `system`), event type, optional comment, timestamp                                                                 | Staff, indirectly students |
+| Staff accounts      | `users`                   | E-mail, display name, role, PBKDF2 password hash + salt                                                                                        | Staff                      |
+| Sessions            | `refresh_tokens`          | SHA-256-hashed refresh tokens linked to a staff account                                                                                        | Staff                      |
+| Login rate limiting | `login_attempts`          | Staff e-mail, timestamp, success flag — pruned after 24 h by the cron handler                                                                  | Staff                      |
+| Push targets        | `push_subscriptions`      | Pseudonymous push endpoint or FCM token, web-push keys, optional device name                                                                   | Staff                      |
+| Synced roster       | `classes`, `students`     | SIS class id, name, level; SIS student id, first/last name, class assignment — always-current mirror, replaced wholesale on every sync         | Students                   |
+| Presence log        | `student_presence_events` | Student SIS id, present/absent flag, observation timestamp — auto-pruned after `PRESENCE_RETENTION_DAYS` (default 30)                          | Students                   |
 
-Student rosters (classes, names) are **read on demand from the SIS provider** and not stored;
-only the id and display name of the one excluded student are denormalized into the incident row,
-so the historical record stays accurate without mirroring the SIS. Free-text comments must not be
-used for sensitive data (health, religion…) — staff training point.
+Student rosters (classes, names) are **synchronized from the school's SIS** via a dedicated
+machine-to-machine sync worker (`/api/v1/sync/*`, once the publisher grants API access) and
+stored in this Worker's own D1, so the exclusion-reporting UI and presence look-ups work without
+depending on a live SIS call per request. Only the fields listed in the inventory above are
+ingested — no other student attribute (birth date, address, photo, grades, health/family
+information) is ever synced or stored. The one excluded student's id and display name are still
+additionally denormalized into the incident row at creation time, so the historical record stays
+accurate even if the synced roster changes later. Free-text comments must not be used for
+sensitive data (health, religion…) — staff training point.
+
+École Directe / APLIM Charlemagne is the school's existing student information system — it
+already holds this data as the system of record; the sync worker is an integration mechanism
+between systems the school already controls, not a new third-party recipient of student data.
+Each school's DPO should still confirm this framing in their registre entry, particularly if the
+sync worker is hosted or operated by a different party than the school itself.
 
 ## Per-school isolation
 
@@ -64,6 +80,13 @@ Also covered automatically: `login_attempts` older than 24 h are pruned by the c
 Staff accounts are kept while the person works at the school, then `disabled` (kept for audit
 integrity of past events); push subscriptions die with the device registration and expired ones
 are pruned on send.
+
+The synced roster (`classes`, `students`) has no independent retention period: every sync fully
+replaces it, so a student/class leaving the SIS disappears from the mirror on the next sync.
+`student_presence_events` — the most sensitive category here, a timeline of student whereabouts
+— is retained only `PRESENCE_RETENTION_DAYS` (default **30 days**) and pruned automatically by
+the same cron handler, deliberately short and unconditional (unlike the exclusion purge above,
+which is a manual, school-triggered procedure).
 
 ## Data subject rights (droits des personnes)
 
@@ -135,11 +158,16 @@ to adapt:
 > **Catégories de données** : identification de l'élève (identifiant du système de gestion, nom,
 > classe au moment de l'incident) ; incident (motif, commentaire éventuel, statut, horodatages) ;
 > comptes des personnels (e-mail, nom, rôle, mot de passe haché) ; jetons de notification
-> pseudonymes des terminaux des personnels.
+> pseudonymes des terminaux des personnels ; annuaire élèves synchronisé depuis le SIS
+> (identifiant, nom, classe) ; présence ponctuelle des élèves (présent/absent, horodatage),
+> lorsque la synchronisation est active.
 > **Destinataires** : vie scolaire, direction, enseignant à l'origine du signalement (pour ses
-> propres signalements). Aucune communication à des tiers.
+> propres signalements). Aucune communication à des tiers ; le SIS (École Directe / APLIM
+> Charlemagne) est déjà le système de référence de l'établissement pour ces données.
 > **Durée de conservation** : 24 mois après la création de l'incident [à adapter], puis purge ;
-> comptes des personnels : durée des fonctions.
+> comptes des personnels : durée des fonctions ; annuaire élèves synchronisé : mis à jour à
+> chaque synchronisation, sans conservation indépendante ; présence : 30 jours [à adapter],
+> purge automatique.
 > **Transferts hors UE** : hébergement Cloudflare et transport des notifications Google
 > FCM / Apple APNs — clauses contractuelles types et/ou EU-U.S. Data Privacy Framework
 > [vérifier le mécanisme en vigueur].

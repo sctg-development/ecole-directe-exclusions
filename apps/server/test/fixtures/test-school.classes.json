@@ -1,0 +1,50 @@
+[
+  {
+    "id": "cls-fixture-01",
+    "name": "2nde 1",
+    "level": "Seconde",
+    "studentCount": 31
+  },
+  {
+    "id": "cls-fixture-02",
+    "name": "2nde 2",
+    "level": "Seconde",
+    "studentCount": 31
+  },
+  {
+    "id": "cls-fixture-03",
+    "name": "2nde 3",
+    "level": "Seconde",
+    "studentCount": 31
+  },
+  {
+    "id": "cls-fixture-04",
+    "name": "1re G1",
+    "level": "Première",
+    "studentCount": 31
+  },
+  {
+    "id": "cls-fixture-05",
+    "name": "1re G2",
+    "level": "Première",
+    "studentCount": 31
+  },
+  {
+    "id": "cls-fixture-06",
+    "name": "1re STMG",
+    "level": "Première",
+    "studentCount": 31
+  },
+  {
+    "id": "cls-fixture-07",
+    "name": "Tle G1",
+    "level": "Terminale",
+    "studentCount": 31
+  },
+  {
+    "id": "cls-fixture-08",
+    "name": "Tle STI2D",
+    "level": "Terminale",
+    "studentCount": 30
+  }
+]

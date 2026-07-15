@@ -61,6 +61,9 @@ export const ACTIVE_STATUSES: readonly ExclusionStatus[] = [
 /** Minutes before a pending/acknowledged exclusion escalates to `missing` (per-school var). */
 export const DEFAULT_ESCALATION_MINUTES = 10;
 
+/** Days to retain synced `student_presence_events` rows before the cron handler prunes them. */
+export const DEFAULT_PRESENCE_RETENTION_DAYS = 30;
+
 export const ACCESS_TOKEN_TTL_SECONDS = 15 * 60;
 export const REFRESH_TOKEN_TTL_DAYS = 14;
 export const PBKDF2_ITERATIONS = 210_000;
