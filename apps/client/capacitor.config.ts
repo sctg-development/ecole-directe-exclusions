@@ -25,6 +25,9 @@ import type { CapacitorConfig } from "@capacitor/cli";
  * Native projects are generated per docs/MOBILE.md (`npx cap add android|ios`), then kept in
  * sync with `npm run cap:sync -w @exclusions/client` after every web build.
  */
+// iOS bundle id (Apple allows hyphens; already provisioned). Android's real applicationId is
+// "org.eu.sctgdevelopment.exclusions" (Java package names can't contain hyphens) — set directly
+// in android/app/build.gradle, not derived from this shared config.
 const config: CapacitorConfig = {
   appId: "org.eu.sctg-development.exclusions",
   appName: "Exclusions",

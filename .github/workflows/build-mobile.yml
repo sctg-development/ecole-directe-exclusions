@@ -91,12 +91,6 @@ jobs:
         with:
           xcode-version: latest
 
-      - name: Install CocoaPods
-        run: |
-          sudo gem install cocoapods
-          sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
-          echo "$HOME/.gem/ruby/3.1.0/bin" >> $GITHUB_PATH
-
       - name: Sync Capacitor (iOS)
         working-directory: apps/client
         run: npx cap sync ios
@@ -127,7 +121,7 @@ jobs:
               <key>method</key>
               <string>app-store</string>
               <key>teamID</key>
-              <string>DRJUH4K7VV</string>
+              <string>6G4W4D2F29</string>
               <key>uploadBitcode</key>
               <false/>
               <key>compileBitcode</key>
@@ -145,12 +139,12 @@ jobs:
           # Clean previous build
           rm -rf build/
 
-          # Install pods
-          pod install --repo-update
+          # Resolve Swift Package Manager dependencies (this project has no Podfile/CocoaPods)
+          xcodebuild -resolvePackageDependencies -project App.xcodeproj -scheme App
 
           # Build and archive
           xcodebuild \
-            -workspace App.xcworkspace \
+            -project App.xcodeproj \
             -scheme App \
             -configuration Release \
             -destination generic/platform=iOS \
@@ -164,33 +158,10 @@ jobs:
             -exportPath $PWD/build \
             -exportOptionsPlist ExportOptions.plist
 
-      # --- Notarization (required for distribution) ---
-      - name: Notarize IPA
-        working-directory: apps/client/ios/App
-        run: |
-          # Install altool (notarization tool)
-          xcrun altool --notarize-app \
-            --primary-bundle-id "org.eu.sctg-development.exclusions" \
-            --username "${{ secrets.APPLE_ID }}" \
-            --password "${{ secrets.APPLE_ID_PASSWORD }}" \
-            --file build/App.ipa
-
-          # Alternative with API Key (recommended)
-          # xcrun altool --notarize-app \
-          #   --primary-bundle-id "org.eu.sctg-development.exclusions" \
-          #   --asc-provider "${{ secrets.APP_STORE_CONNECT_PROVIDER }}" \
-          #   --api-key "${{ secrets.APP_STORE_CONNECT_API_KEY }}" \
-          #   --file build/App.ipa
-
-          # Wait for notarization (may take several minutes)
-          sleep 60
-
-          # Check status
-          xcrun altool --notarization-info "${{ secrets.APPLE_ID }}" \
-            --password "${{ secrets.APPLE_ID_PASSWORD }}" \
-            --primary-bundle-id "org.eu.sctg-development.exclusions"
-
       # --- Rename and Upload ---
+      # Notarization is a macOS Gatekeeper mechanism and doesn't apply to iOS IPAs; app-store
+      # builds are reviewed by Apple after upload, not notarized. The IPA is uploaded below as a
+      # CI artifact — push it to App Store Connect manually (Transporter) or via TestFlight.
       - name: Rename IPA with version
         working-directory: apps/client/ios/App
         run: |

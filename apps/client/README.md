@@ -72,7 +72,9 @@ Testing tips:
 `capacitor.config.ts` wraps the production `dist/` build (`appId: org.eu.sctg-development.exclusions`). The
 native `android/` and `ios/` projects are generated with `npx cap add android|ios` and maintained
 per [docs/MOBILE.md](../../docs/MOBILE.md) — see that guide for signing, FCM setup and store
-delivery. After every web build, run `npm run cap:sync -w @exclusions/client`.
+delivery. After every web build, run `npm run cap:sync -w @exclusions/client`. Android uses
+`org.eu.sctgdevelopment.exclusions` instead (Java package names can't contain hyphens); iOS keeps
+the hyphenated id since it's already provisioned with Apple.
 
 ## Icons
 
