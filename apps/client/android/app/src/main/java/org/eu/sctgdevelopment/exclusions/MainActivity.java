@@ -1,4 +1,4 @@
-package org.eu.sctg-development.exclusions;
+package org.eu.sctgdevelopment.exclusions;
 
 import com.getcapacitor.BridgeActivity;
 
