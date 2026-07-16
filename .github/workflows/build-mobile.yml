@@ -59,13 +59,16 @@ jobs:
           else
             VERSION="$(node -p "require('./package.json').version")-preview-$(date +'%Y%m%d%H%M%S')"
           fi
-          mv android/app/build/outputs/apk/release/app-release.apk "app-release-${VERSION}.apk"
+          # Unsigned build: no release signingConfig is configured yet, so Gradle names the
+          # output app-release-unsigned.apk. Not installable on most devices / not Play
+          # Store-ready until a real signingConfig + keystore secrets are added.
+          mv android/app/build/outputs/apk/release/app-release-unsigned.apk "app-release-${VERSION}-unsigned.apk"
 
       - name: Upload Android APK
         uses: actions/upload-artifact@v4
         with:
           name: android-app
-          path: apps/client/android/app/build/outputs/apk/release/app-release-*.apk
+          path: apps/client/android/app/build/outputs/apk/release/app-release-*-unsigned.apk
 
   build-ios:
     name: Build iOS App
@@ -117,6 +120,10 @@ jobs:
           echo "${{ secrets.APPLE_CERTIFICATE }}" | base64 --decode > certificate.p12
           security import certificate.p12 -k "$KEYCHAIN_PATH" -P "${{ secrets.APPLE_CERTIFICATE_PASSWORD }}" -T /usr/bin/codesign -T /usr/bin/security
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+
+          # Diagnostic: list what identity/team was actually imported (no secrets exposed)
+          echo "--- Identities in $KEYCHAIN_PATH ---"
+          security find-identity -v -p codesigning "$KEYCHAIN_PATH"
 
           # Decode and install the provisioning profile
           echo "${{ secrets.APPLE_PROVISIONING_PROFILE }}" | base64 --decode > App_Profile.mobileprovision
