@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+// Release signing comes from env vars (set in CI from the ANDROID_KEYSTORE_* secrets); local
+// release builds without them stay unsigned, same as before this was wired up.
+def releaseKeystorePath = System.getenv("ANDROID_KEYSTORE_PATH")
+
 android {
     namespace = "org.eu.sctgdevelopment.exclusions"
     compileSdk = rootProject.ext.compileSdkVersion
@@ -16,10 +20,23 @@ android {
             ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
     }
+    signingConfigs {
+        if (releaseKeystorePath) {
+            release {
+                storeFile file(releaseKeystorePath)
+                storePassword System.getenv("ANDROID_KEYSTORE_PASSWORD")
+                keyAlias System.getenv("ANDROID_KEY_ALIAS")
+                keyPassword System.getenv("ANDROID_KEY_PASSWORD")
+            }
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            if (releaseKeystorePath) {
+                signingConfig signingConfigs.release
+            }
         }
     }
 }

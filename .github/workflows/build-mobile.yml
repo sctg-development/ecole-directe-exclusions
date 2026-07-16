@@ -47,7 +47,13 @@ jobs:
 
       - name: Build Android APK
         working-directory: apps/client
+        env:
+          ANDROID_KEYSTORE_PATH: ${{ github.workspace }}/exclusions-release.keystore
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
         run: |
+          echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > "$ANDROID_KEYSTORE_PATH"
           cd android
           ./gradlew assembleRelease
 
@@ -59,16 +65,13 @@ jobs:
           else
             VERSION="$(node -p "require('./package.json').version")-preview-$(date +'%Y%m%d%H%M%S')"
           fi
-          # Unsigned build: no release signingConfig is configured yet, so Gradle names the
-          # output app-release-unsigned.apk. Not installable on most devices / not Play
-          # Store-ready until a real signingConfig + keystore secrets are added.
-          mv android/app/build/outputs/apk/release/app-release-unsigned.apk "app-release-${VERSION}-unsigned.apk"
+          mv android/app/build/outputs/apk/release/app-release.apk "app-release-${VERSION}.apk"
 
       - name: Upload Android APK
         uses: actions/upload-artifact@v4
         with:
           name: android-app
-          path: apps/client/android/app/build/outputs/apk/release/app-release-*-unsigned.apk
+          path: apps/client/android/app/build/outputs/apk/release/app-release-*.apk
 
   build-ios:
     name: Build iOS App
@@ -242,7 +245,7 @@ jobs:
       - name: Rename release assets
         run: |
           mkdir -p release-assets
-          cp artifacts/android/app-release-*-unsigned.apk "release-assets/exclusions-${{ steps.meta.outputs.tag }}.apk"
+          cp artifacts/android/app-release-*.apk "release-assets/exclusions-${{ steps.meta.outputs.tag }}.apk"
           cp artifacts/ios/App-*.ipa "release-assets/exclusions-${{ steps.meta.outputs.tag }}.ipa"
 
       # New tag on push: create a prerelease. `release: published` already has its own tag,
