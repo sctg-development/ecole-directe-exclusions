@@ -252,7 +252,7 @@ jobs:
       # title and notes (set by whoever published it) — only attach assets, don't touch them.
       - name: Publish preview release
         if: github.event_name != 'release'
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -264,7 +264,7 @@ jobs:
 
       - name: Attach assets to release
         if: github.event_name == 'release'
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
