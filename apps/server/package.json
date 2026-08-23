@@ -22,14 +22,14 @@
   },
   "dependencies": {
     "@exclusions/shared": "*",
-    "hono": "^4.12.29",
+    "hono": "^4.13.3",
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@cloudflare/vitest-pool-workers": "^0.18.4",
-    "@cloudflare/workers-types": "^5.20260712.1",
+    "@cloudflare/vitest-pool-workers": "^0.22.0",
+    "@cloudflare/workers-types": "^5.20260820.1",
     "typescript": "^6.0.3",
-    "vitest": "^4.1.10",
+    "vitest": "^4.1.11",
     "wrangler": "^4.111.0"
   }
 }
